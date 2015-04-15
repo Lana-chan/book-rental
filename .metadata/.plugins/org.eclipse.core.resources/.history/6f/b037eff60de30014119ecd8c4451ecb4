@@ -1,0 +1,5 @@
+livroDao=dao.LivroDaoJDBC
+jdbcDriver=org.sqlite.JDBC
+jdbcConnectionString=jdbc:sqlite:rental.db
+jdbcUser=root
+jdbcPassword=

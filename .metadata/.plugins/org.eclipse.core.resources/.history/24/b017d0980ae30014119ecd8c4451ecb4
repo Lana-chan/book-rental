@@ -1,0 +1,5 @@
+livroDao=dao.LivroDaoJDBC
+jdbcDriver=com.mysql.jdbc.Driver
+jdbcConnectionString=jdbc:mysql://localhost/coo2015
+jdbcUser=root
+jdbcPassword=
