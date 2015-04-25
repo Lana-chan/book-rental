@@ -1,0 +1,11 @@
+package entidades;
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
+	
+	//Lista de livros colecao;
+	
+	
+	
+	
+}

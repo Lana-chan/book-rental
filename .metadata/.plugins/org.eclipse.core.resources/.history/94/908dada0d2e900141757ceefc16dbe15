@@ -1,0 +1,9 @@
+package entidades;
+import java.io.Serializable;
+import util.StringUtils;
+
+public class Usuario implements Serializable {
+	
+	
+	
+}

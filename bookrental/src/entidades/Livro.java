@@ -8,20 +8,46 @@ public class Livro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String autor; // deveria ser uma lista de autores
+	private long ISBN;
 	private String titulo;
-	private String editora; // deveria ser um objeto Editora contendo infos da
-							// editora
+	private String autor;
+	private String editora;
+	private int ano;
+	private int edicao;
+	private int numPaginas;
+	private String idioma;
+	private String acabamento;
+	private String sinopse;
 
 	public Livro() {
 	}
 
-	public Livro(String autor, String titulo, String editora) {
-		setAutor(autor);
+	public Livro(long ISBN, String titulo, String autor, String editora, int ano, int edicao, int numPaginas, String idioma, String acabamento, String sinopse) {
+		setISBN(ISBN);
 		setTitulo(titulo);
+		setAutor(autor);
 		setEditora(editora);
+		setAno(ano);
+		setEdicao(edicao);
+		setNumPaginas(numPaginas);
+		setIdioma(idioma);
+		setAcabamento(acabamento);
+		setSinopse(sinopse);
+		
 	}
 
+	/*-------------------------------------------------------------------------------
+	 * Getters e Setters
+	 *------------------------------------------------------------------------------*/
+	
+	public long getISBN() {
+		return ISBN;
+	}
+
+	public void setISBN(long ISBN) {
+		this.ISBN = ISBN;
+	}
+	
 	public String getAutor() {
 		return autor;
 	}
@@ -46,6 +72,59 @@ public class Livro implements Serializable {
 		this.editora = editora;
 	}
 
+	public int getAno() {
+		return ano;
+	}
+
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+
+	public int getEdicao() {
+		return edicao;
+	}
+
+	public void setEdicao(int edicao) {
+		this.edicao = edicao;
+	}
+
+	public int getNumPaginas() {
+		return numPaginas;
+	}
+
+	public void setNumPaginas(int numPaginas){
+		this.numPaginas = numPaginas;
+	}
+
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma){
+		this.idioma = idioma;
+	}
+	
+	public String getAcabamento() {
+		return acabamento;
+	}
+
+	public void setAcabamento(String acabamento) {
+		this.acabamento = acabamento;
+	}
+
+	public String getSinopse() {
+		return sinopse;
+	}
+
+	public void setSinopse(String sinopse) {
+		this.sinopse = sinopse;
+	}
+
+
+	/*-------------------------------------------------------------------------------
+	 * Métodos
+	 *------------------------------------------------------------------------------*/
+	
 	// sobrescrevemos o método "toString" para imprimir o objeto Livro no
 	// console
 	@Override

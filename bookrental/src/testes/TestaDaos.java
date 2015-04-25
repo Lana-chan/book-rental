@@ -6,12 +6,12 @@ import entidades.Livro;
 
 public class TestaDaos {
 
-	static final String[] titulos = { "Capitães da Areia", "O Tempo e o Vento", "Vidas Secas", "Senhora", "A Moreninha",
-			"Os Lusíadas", "Iracema", "Dom Casmurro", "Macunaíma", "O Cortiço", "A Hora da Estrela",
-			"Memórias de um Sargento de Milícias", "Os Sertões", "Auto da Barca do Inferno" };
-	static final String[] autores = { "Jorge Amado", "Érico Veríssimo", "Graciliano Ramos", "José de Alencar",
-			"Joaquim Manuel Macedo", "Luís de Camões", "José de Alencar", "Machado de Assis", "Mário de Andrade",
-			"Aluísio Azevedo", "Clarice Lispector", "Manuel Antônio de Almeida", "Euclides da Cunha", "Gil Vicente" };
+	static final String[] titulos = { "Capit√£es da Areia", "O Tempo e o Vento", "Vidas Secas", "Senhora", "A Moreninha",
+			"Os Lus√≠adas", "Iracema", "Dom Casmurro", "Macuna√≠ma", "O Corti√ßo", "A Hora da Estrela",
+			"Mem√≥rias de um Sargento de Mil√≠cias", "Os Sert√µes", "Auto da Barca do Inferno" };
+	static final String[] autores = { "Jorge Amado", "√ârico Ver√≠ssimo", "Graciliano Ramos", "Jos√© de Alencar",
+			"Joaquim Manuel Macedo", "Lu√≠s de Cam√µes", "Jos√© de Alencar", "Machado de Assis", "M√°rio de Andrade",
+			"Alu√≠sio Azevedo", "Clarice Lispector", "Manuel Ant√¥nio de Almeida", "Euclides da Cunha", "Gil Vicente" };
 
 	static final String[] editoras = { "Editora Abril", "Editora ABC", "Editora Alpha", "Editora Beta", "Editora Abril",
 			"Editora ABC", "Editora Alpha", "Editora Beta", "Editora Abril", "Editora ABC", "Editora Alpha", "Editora Beta",
@@ -42,7 +42,7 @@ public class TestaDaos {
 		LivroDao livroDao = new LivroDaoFactory().getInstance();
 
 		for (int i = 0; i < autores.length; i++) {
-			livroDao.adiciona(new Livro(autores[i], titulos[i], editoras[i]));
+			//livroDao.adiciona(new Livro(autores[i], titulos[i], editoras[i], i));
 		}
 	}
 
@@ -57,7 +57,7 @@ public class TestaDaos {
 	static void testaBuscaPorTitulo() {
 		LivroDao livroDao = new LivroDaoFactory().getInstance();
 		System.out.println("-----------------------------------------------------------------------------------");
-		System.out.println("------------------------ Testa busca por título -----------------------------------");
+		System.out.println("------------------------ Testa busca por t√≠tulo -----------------------------------");
 		System.out.println("-----------------------------------------------------------------------------------");
 
 		for (int i = 0; i < titulos.length; i++) {
@@ -79,7 +79,7 @@ public class TestaDaos {
 		System.out.println("\n");
 
 		System.out.println("-----------------------------------------------------------------------------------");
-		System.out.println("------------------------- Livros ordenados por título -----------------------------");
+		System.out.println("------------------------- Livros ordenados por t√≠tulo -----------------------------");
 		System.out.println("-----------------------------------------------------------------------------------");
 		for (Livro livro : livroDao.listaTodosOrdenandoPorTitulo()) {
 			System.out.println(livro);

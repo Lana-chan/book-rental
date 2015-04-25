@@ -1,9 +1,0 @@
-mysql -u root -p;
-create database coo2015;
-use database coo2015;
-create table livros (
-	titulo VARCHAR(50) NOT NULL, 
-	autor VARCHAR(50), 
-	editora VARCHAR(50), 
-	primary key (titulo)
-);

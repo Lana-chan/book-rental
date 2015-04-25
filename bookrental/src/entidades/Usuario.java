@@ -1,0 +1,117 @@
+package entidades;
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	private int ID;
+	private String nome;
+	private String endereco;
+	private String email;
+	private Exemplar colecao;
+	private Avaliacao reputacao;
+	
+	public Usuario(){
+		
+	}
+	
+	public Usuario(int ID, String nome, String endereco, String email, Exemplar colecao, Avaliacao reputacao){
+		setID(ID);
+		setNome(nome);
+		setEndereco(endereco);
+		setEmail(email);
+		setColecao(colecao);
+		setReputacao(reputacao);
+	}
+	
+	/*-------------------------------------------------------------------------------
+	 * Getters e Setters
+	 *------------------------------------------------------------------------------*/
+	
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+	
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setColecao(Exemplar colecao) {
+		this.colecao = colecao;
+	}
+	
+	public Exemplar getColecao() {
+		return colecao;
+	}
+
+	public void setReputacao(Avaliacao reputacao) {
+		this.reputacao = reputacao;
+	}
+	
+	public Avaliacao getReputacao() {
+		return reputacao;
+	}
+
+	/*-------------------------------------------------------------------------------
+	 * Métodos
+	 *------------------------------------------------------------------------------*/
+	
+	public Exemplar incluiExemplar(){
+
+	}
+
+	public Exemplar removeExemplar(){
+
+	}
+
+	public Exemplar disponibilizaExemplar(){
+
+	}
+
+	public Livro cadastraLivro(){
+
+	}
+
+	public respondeSolicitacao(){
+
+	}
+
+	public fazSolicitacao(){
+
+	}
+
+	public float fazMedia(){
+
+	}
+
+	public Usuario criaUsuario(){
+
+	}
+	
+	
+}
