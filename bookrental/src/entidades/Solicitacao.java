@@ -10,9 +10,10 @@ public class Solicitacao {
 	private boolean confirmaEntregaReceptor;
 	private String mensagem;
 	
-	Solicitacao(Usuario doador, Exemplar exemplar, String mensagem){
+	Solicitacao(Usuario doador, Usuario receptor, Exemplar exemplar, String mensagem){
 		setDoador(doador);
-		setReceptor(this); // o receptor seria o proprio usuario que invoca o metodo Usuario.criaSolicitacao
+		setReceptor(receptor);
+		// this aqui se refere a um tipo solicitacao, isso não está no usuario.java, pessoal
 		setExemplar(exemplar);
 	}
 	

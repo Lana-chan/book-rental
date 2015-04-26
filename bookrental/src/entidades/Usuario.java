@@ -7,21 +7,21 @@ public class Usuario implements Serializable {
 	
 	private int numUSP;
 	private String nome;
-	private enum unidade;
+	private Unidade unidade;
 	private String email;
 	private String foto;
 	private Exemplar colecao; //lista
 	private Avaliacao reputacao; //lista
 	
-	public Usuario (){
+	public Usuario () {
 		
 	}
 	
-	public Usuario(int numUSP, String nome, enum unidade, String email){
-		setNumUSP(numUSP);
-		setNome(nome);
-		setUnidade(unidade);
-		setEmail(email);
+	public Usuario(int numUSP, String nome, Unidade unidade, String email) {
+		this.setNumUSP(numUSP);
+		this.setNome(nome);
+		this.setUnidade(unidade);
+		this.setEmail(email);
 	}
 	
 	/*-------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ public class Usuario implements Serializable {
 	 *------------------------------------------------------------------------------*/
 	
 	public int getNumUSP() {
-		return numUSP;
+		return this.numUSP;
 	}
 
 	public void setNumUSP(int numUsp) {
@@ -37,23 +37,23 @@ public class Usuario implements Serializable {
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	
-	public enum getUnidade() {
-		return unidade;
+	public Unidade getUnidade() {
+		return this.unidade;
 	}
 
-	public void setUnidade(enum unidade) {
+	public void setUnidade(Unidade unidade) {
 		this.unidade = unidade ;
 	}
 	
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -66,11 +66,13 @@ public class Usuario implements Serializable {
 	 *------------------------------------------------------------------------------*/
 	
 	public Exemplar incluiExemplar(Exemplar exemplar){
-		
+		Exemplar incluso;
+		incluso = new Exemplar(); //substituir
+		return incluso;
 	}
 
-	public Exemplar removeExemplar(Exemplar exemplar){
-
+	public void removeExemplar(Exemplar exemplar){
+		//talvez bool pra retornar se deu certo
 	}
 
 	public void cadastraLivro(Livro livro){
