@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import entidades.Exemplar;
+import entidades.Livro;
 
 public abstract class ExemplarDao {
 
@@ -21,7 +22,7 @@ public abstract class ExemplarDao {
 			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
 		}
 
-		if (exemplar.getTitulo() == null) {
+		if (exemplar.getLivro() == null) {
 			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem livro.");
 		}
 
@@ -41,7 +42,7 @@ public abstract class ExemplarDao {
 			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
 		}
 
-		if (exemplar.getTitulo() == null) {
+		if (exemplar.getLivro() == null) {
 			throw new IllegalArgumentException("Não é possível atualizar um exemplar sem livro.");
 		}
 
@@ -52,7 +53,7 @@ public abstract class ExemplarDao {
 		atualiza_(exemplar);
 	}
 
-	protected abstract void atualiza_(Livro livro);
+	protected abstract void atualiza_(Exemplar exemplar);
 
 	public Exemplar buscaPorLivro(Livro livro) {
 		if (livro == null) {
@@ -62,7 +63,7 @@ public abstract class ExemplarDao {
 		return buscaPorLivro_(livro);
 	}
 
-	protected abstract Livro buscaPorLivro_(String livro);
+	protected abstract Exemplar buscaPorLivro_(Livro livro);
 
 	public void remove(Exemplar exemplar) {
 		if (exemplar == null) {

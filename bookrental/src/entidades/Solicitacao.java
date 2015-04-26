@@ -1,6 +1,9 @@
 package entidades;
+import java.io.Serializable;
 
-public class Solicitacao {
+public class Solicitacao implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private Usuario doador;
 	private Usuario receptor;
