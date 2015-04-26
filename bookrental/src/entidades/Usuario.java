@@ -1,5 +1,6 @@
 package entidades;
 import java.io.Serializable;
+import java.util.*;
 
 public class Usuario implements Serializable {
 	
@@ -10,8 +11,8 @@ public class Usuario implements Serializable {
 	private Unidade unidade;
 	private String email;
 	private String foto;
-	private Exemplar colecao; //lista
-	private Avaliacao reputacao; //lista
+	private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
+	private List<Avaliacao> reputacao = new ArrayList<Avaliacao>(); //lista
 	
 	public Usuario () {
 		
@@ -90,14 +91,11 @@ public class Usuario implements Serializable {
 	
 	public void criaSolicitacao(Exemplar exemplar, String mensagem){
 		//qndo a pessoa clicar no botão, requisitar livro.
+		Solicitacao solic = new Solicitacao(exemplar.getProprietario(), this, exemplar, mensagem);
+		exemplar.incluiSolicitacao(solic);
 	}
 	
 	public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
 		//confirma se vai doar ou não ao possível receptor.
-	}
-	
-	public enum unidade{
-		EACH, FEA, POLI, MED
-	}
-	
+	}	
 }

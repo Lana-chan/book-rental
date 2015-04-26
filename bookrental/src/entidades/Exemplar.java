@@ -1,5 +1,6 @@
 package entidades;
 import java.io.Serializable;
+import java.util.*;
 
 public class Exemplar implements Serializable {
 	
@@ -7,8 +8,8 @@ public class Exemplar implements Serializable {
 	private Livro livro;
 	private boolean disponivel;
 	private Usuario proprietario;
-	private Usuario historicoProprietario; //é uma lista
-	private Solicitacao solicitacoes;
+	private List<Usuario> historicoProprietario = new ArrayList<Usuario>();
+	private List<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
 	private String foto;
 	
 	
@@ -51,7 +52,7 @@ public class Exemplar implements Serializable {
 		this.proprietario = proprietario;
 	}
 	
-	public Usuario getHistoricoProprietario() { //é uma lista
+	public List<Usuario> getHistoricoProprietario() { //é uma lista
 		return historicoProprietario;
 	}
 	
@@ -71,9 +72,13 @@ public class Exemplar implements Serializable {
 		//modifica quando a entrega é confirmada. Atualiza o histórico.
 	}
 	
-	public void incluiSolicitacao (Solicitacao solicitacao){}
+	public void incluiSolicitacao (Solicitacao solicitacao) {
+		this.solicitacoes.add(solicitacao);
+	}
 	
-	public void excluiSolicitacao (Solicitacao solicitacao){}
+	public void excluiSolicitacao (Solicitacao solicitacao) {
+		this.solicitacoes.remove(solicitacao);
+	}
 	
 	
 }

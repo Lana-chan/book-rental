@@ -17,20 +17,20 @@ public class Solicitacao {
 		setExemplar(exemplar);
 	}
 	
-	public Usuario getDoador() { return doador; }
+	public Usuario getDoador() { return this.doador; }
 	public void setDoador(Usuario doador) { this.doador = doador; }
 	
-	public Usuario getReceptor() { return receptor; }
+	public Usuario getReceptor() { return this.receptor; }
 	public void setReceptor(Usuario receptor) { this.receptor = receptor; }
 	
-	public Exemplar getExemplar() { return exemplar; }
+	public Exemplar getExemplar() { return this.exemplar; }
 	public void setExemplar(Exemplar exemplar) { this.exemplar = exemplar; }
 	
-	public boolean getSolicitacaoDeferida() { return solicitacaoDeferida; }
-	public void setSolicitacaoDeferida(boolean deferida){ this.solicitacaoDeferida=deferida;}
+	public boolean getSolicitacaoDeferida() { return this.solicitacaoDeferida; }
+	public void setSolicitacaoDeferida(boolean deferida){ this.solicitacaoDeferida = deferida;}
 	
-	public String getMensagem() { return mensagem; }
-	public void setMensagem(String mensagem){ this.mensagem=mensagem;}
+	public String getMensagem() { return this.mensagem; }
+	public void setMensagem(String mensagem){ this.mensagem = mensagem;}
 
 	/*-------------------------------------------------------------------------------
 	 * Métodos
