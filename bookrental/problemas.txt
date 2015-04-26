@@ -1,0 +1,2 @@
+Onde criar a classe criaAvaliacao?
+-Na Solicitacao??

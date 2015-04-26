@@ -5,36 +5,35 @@ public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int ID;
+	private int numUSP;
 	private String nome;
-	private String endereco;
+	private enum unidade;
 	private String email;
-	private Exemplar colecao;
-	private Avaliacao reputacao;
+	private String foto;
+	private Exemplar colecao; //lista
+	private Avaliacao reputacao; //lista
 	
-	public Usuario(){
+	public Usuario (){
 		
 	}
 	
-	public Usuario(int ID, String nome, String endereco, String email, Exemplar colecao, Avaliacao reputacao){
-		setID(ID);
+	public Usuario(int numUSP, String nome, enum unidade, String email){
+		setNumUSP(numUSP);
 		setNome(nome);
-		setEndereco(endereco);
+		setUnidade(unidade);
 		setEmail(email);
-		setColecao(colecao);
-		setReputacao(reputacao);
 	}
 	
 	/*-------------------------------------------------------------------------------
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
 	
-	public int getID() {
-		return ID;
+	public int getNumUSP() {
+		return numUSP;
 	}
 
-	public void setID(int ID) {
-		this.ID = ID;
+	public void setNumUSP(int numUsp) {
+		this.numUSP = numUsp;
 	}
 	
 	public String getNome() {
@@ -44,74 +43,59 @@ public class Usuario implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
 	
-	public String getEndereco() {
-		return endereco;
+	public enum getUnidade() {
+		return unidade;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUnidade(enum unidade) {
+		this.unidade = unidade ;
 	}
 	
 	public String getEmail() {
 		return email;
 	}
 
-	public void setColecao(Exemplar colecao) {
-		this.colecao = colecao;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
-	public Exemplar getColecao() {
-		return colecao;
-	}
-
-	public void setReputacao(Avaliacao reputacao) {
-		this.reputacao = reputacao;
-	}
-	
-	public Avaliacao getReputacao() {
-		return reputacao;
-	}
 
 	/*-------------------------------------------------------------------------------
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
 	
-	public Exemplar incluiExemplar(){
+	public Exemplar incluiExemplar(Exemplar exemplar){
+		
+	}
+
+	public Exemplar removeExemplar(Exemplar exemplar){
 
 	}
 
-	public Exemplar removeExemplar(){
-
-	}
-
-	public Exemplar disponibilizaExemplar(){
-
-	}
-
-	public Livro cadastraLivro(){
-
-	}
-
-	public respondeSolicitacao(){
-
-	}
-
-	public fazSolicitacao(){
-
-	}
-
-	public float fazMedia(){
-
-	}
-
-	public Usuario criaUsuario(){
+	public void cadastraLivro(Livro livro){
 
 	}
 	
+	public void criaAvaliacao(Avaliacao avaliacao){
+		//a pensar
+	}
+
+	public void incluiReputacao(Avaliacao novaAvaliacao){
+		
+	}
+	
+	
+	public void criaSolicitacao(Exemplar exemplar, String mensagem){
+		//qndo a pessoa clicar no botão, requisitar livro.
+	}
+	
+	public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
+		//confirma se vai doar ou não ao possível receptor.
+	}
+	
+	public enum unidade{
+		EACH, FEA, POLI, MED
+	}
 	
 }

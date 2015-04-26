@@ -16,13 +16,12 @@ public class Livro implements Serializable {
 	private int edicao;
 	private int numPaginas;
 	private String idioma;
-	private String acabamento;
 	private String sinopse;
 
 	public Livro() {
 	}
 
-	public Livro(long ISBN, String titulo, String autor, String editora, int ano, int edicao, int numPaginas, String idioma, String acabamento, String sinopse) {
+	public Livro(long ISBN, String titulo, String autor, String editora, int ano, int edicao, int numPaginas, String idioma, String sinopse) {
 		setISBN(ISBN);
 		setTitulo(titulo);
 		setAutor(autor);
@@ -31,7 +30,6 @@ public class Livro implements Serializable {
 		setEdicao(edicao);
 		setNumPaginas(numPaginas);
 		setIdioma(idioma);
-		setAcabamento(acabamento);
 		setSinopse(sinopse);
 		
 	}
@@ -102,14 +100,6 @@ public class Livro implements Serializable {
 
 	public void setIdioma(String idioma){
 		this.idioma = idioma;
-	}
-	
-	public String getAcabamento() {
-		return acabamento;
-	}
-
-	public void setAcabamento(String acabamento) {
-		this.acabamento = acabamento;
 	}
 
 	public String getSinopse() {

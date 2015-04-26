@@ -5,9 +5,10 @@ public class Exemplar implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private Livro livro;
-	private enum disponibilidade;
+	private boolean disponivel;
 	private Usuario proprietario;
-	private Usuario[] historicoProprietario;
+	private Usuario historicoProprietario; //é uma lista
+	private Solicitacao solicitacoes;
 	private String foto;
 	
 	
@@ -15,11 +16,9 @@ public class Exemplar implements Serializable {
 		
 	}
 	
-	public Exemplar (Livro livro, enum disponibilidade, Usuario proprietario, Usuario[] historicoProprietario, String foto){
+	public Exemplar (Livro livro, Usuario proprietario, String foto){
 		setLivro(livro);
-		setDisponibilidade(disponibilidade);
 		setProprietario(proprietario);
-		setHistoricoProprietario(historicoProprietario);
 		setFoto(foto);
 	}
 	
@@ -36,12 +35,12 @@ public class Exemplar implements Serializable {
 		this.livro = livro;
 	}
 	
-	public enum getDisponibilidade() {
-		return disponibilidade;
+	public boolean getDisponivel() {
+		return disponivel;
 	}
 	
-	public void setDisponibilidade(int disponibilidade) {
-		this.disponibilidade = disponibilidade;
+	public void setDisponivel(boolean disponivel) {
+		this.disponivel = disponivel;
 	}
 	
 	public Usuario getProprietario() {
@@ -52,12 +51,8 @@ public class Exemplar implements Serializable {
 		this.proprietario = proprietario;
 	}
 	
-	public Usuario[] getHistoricoProprietario() {
+	public Usuario getHistoricoProprietario() { //é uma lista
 		return historicoProprietario;
-	}
-
-	public void setHistoricoProprietario(Usuario[] proprietario) {
-		this.historicoProprietario = historicoProprietario;
 	}
 	
 	public String getFoto() {
@@ -68,13 +63,17 @@ public class Exemplar implements Serializable {
 		this.foto = foto;
 	}
 	
-	
 	/*-------------------------------------------------------------------------------
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
-	public Usuario modificarProprietario(Usuario novoProprietario){
+	public void modificaProprietario(Usuario novoProprietario){
 		this.proprietario=novoProprietario;
+		//modifica quando a entrega é confirmada. Atualiza o histórico.
 	}
+	
+	public void incluiSolicitacao (Solicitacao solicitacao){}
+	
+	public void excluiSolicitacao (Solicitacao solicitacao){}
 	
 	
 }
