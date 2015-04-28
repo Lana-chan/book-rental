@@ -1,7 +1,9 @@
 package entidades;
+import java.io.Serializable;
 
-public class Solicitacao {
+public class Solicitacao implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private Usuario doador;
 	private Usuario receptor;
 	private Exemplar exemplar;
@@ -37,15 +39,34 @@ public class Solicitacao {
 	 *------------------------------------------------------------------------------*/
 	
 	public void confirmaEntrega (boolean resposta){
-		/* Recebe um boolean dizendo se a entrega foi confirmada.
-		Se for:
-		Se o usuario que invocar o método for igual o doador, irá alterar o ConfirmaEntregaDoador
-		Se quem invocar for igual o receptor, altera o ConfirmaEntregaReceptor
-		Se ConfirmaEntregaDoador e ConfirmaEntregaRecebptor forem true, então o exemplar será excluído da Lista de Exemplares do Doador e incluido ns Lista de Exemplares do Receptor.
-		A Lista de Solicitações do Exmeplar é esvaziada. 
-		Se não:
-		Exclui o exemplar da lista de exemplares do receptor. Coloca o exemplar como disponivel. 
-		*/
+		Usuario solicitante= this.exemplar.getProprietario();
+		
+		if(solicitante==this.doador){
+			//Se o usuario que invocar o método for igual o doador, irá alterar o ConfirmaEntregaDoador
+			this.confirmaEntregaDoador=true;
+		} else if(solicitante==this.receptor){
+			//Se quem invocar for igual o receptor, altera o ConfirmaEntregaReceptor
+			this.confirmaEntregaReceptor=true;
+		}
+		
+		if(this.confirmaEntregaDoador==this.confirmaEntregaReceptor==true){
+			//o exemplar será excluído da Lista de Exemplares do Doador e incluído na Lista de Exemplares do Receptor.
+
+			this.doador.removeExemplar(this.exemplar);
+			this.receptor.incluiExemplar(this.exemplar);
+			
+			//A Lista de Solicitações do Exmeplar é esvaziada. 
+			this.exemplar.excluiSolicitacao(this);
+			
+			//Altera-se o nome do proprietario
+			this.exemplar.modificaProprietario(this.receptor);
+			
+		} else {
+			//Exclui o exemplar da lista de exemplares do receptor. Coloca o exemplar como disponivel. 
+			this.receptor.removeExemplar(this.exemplar);
+			this.exemplar.deixaDisponivel(this.exemplar);
+			
+		}
 	}
 	
 }

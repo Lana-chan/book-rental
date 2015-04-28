@@ -61,6 +61,10 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 	
+	public List<Exemplar> getColecao() { //é uma lista
+		return colecao;
+	}
+	
 
 	/*-------------------------------------------------------------------------------
 	 * Métodos
@@ -80,14 +84,16 @@ public class Usuario implements Serializable {
 
 	}
 	
-	public void criaAvaliacao(Avaliacao avaliacao){
+	public void criaAvaliacao(int nota, String comentario){
 		//a pensar
+		Avaliacao novaAvaliacao=new Avaliacao(nota, comentario, this);
 	}
 
 	public void incluiReputacao(Avaliacao novaAvaliacao){
 		
 	}
 	
+	public void calculaReputacao(){}
 	
 	public void criaSolicitacao(Exemplar exemplar, String mensagem){
 		//qndo a pessoa clicar no botão, requisitar livro.
@@ -98,4 +104,5 @@ public class Usuario implements Serializable {
 	public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
 		//confirma se vai doar ou não ao possível receptor.
 	}	
+	
 }

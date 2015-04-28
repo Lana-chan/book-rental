@@ -21,7 +21,7 @@ public class Livro implements Serializable {
 	public Livro() {
 	}
 
-	public Livro(long ISBN, String titulo, String autor, String editora, int ano, int edicao, int numPaginas, String idioma, String sinopse) {
+	public Livro(long ISBN, String titulo, String autor, String editora, int ano, int edicao, String sinopse, int numPaginas, String idioma) {
 		setISBN(ISBN);
 		setTitulo(titulo);
 		setAutor(autor);
@@ -37,9 +37,9 @@ public class Livro implements Serializable {
 	/*-------------------------------------------------------------------------------
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
-	
+
 	public long getISBN() {
-		return ISBN;
+		return Long.valueOf(ISBN).longValue();
 	}
 
 	public void setISBN(long ISBN) {

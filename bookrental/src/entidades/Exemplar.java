@@ -48,12 +48,16 @@ public class Exemplar implements Serializable {
 		return proprietario;
 	}
 
-	public void setProprietario(Usuario proprietario) {
-		this.proprietario = proprietario;
+	public void setProprietario(Usuario novoProprietario) {
+		this.proprietario = novoProprietario;
 	}
 	
 	public List<Usuario> getHistoricoProprietario() { //é uma lista
 		return historicoProprietario;
+	}
+	
+	public void setHistoricoProprietario(Usuario novoProprietario){
+		this.historicoProprietario.add(novoProprietario);
 	}
 	
 	public String getFoto() {
@@ -68,7 +72,8 @@ public class Exemplar implements Serializable {
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
 	public void modificaProprietario(Usuario novoProprietario){
-		this.proprietario=novoProprietario;
+		setProprietario(novoProprietario);
+		setHistoricoProprietario(novoProprietario);
 		//modifica quando a entrega é confirmada. Atualiza o histórico.
 	}
 	
@@ -78,6 +83,10 @@ public class Exemplar implements Serializable {
 	
 	public void excluiSolicitacao (Solicitacao solicitacao) {
 		this.solicitacoes.remove(solicitacao);
+	}
+	
+	public void deixaDisponivel (Exemplar exemplar){
+		exemplar.disponivel=true;
 	}
 	
 	
