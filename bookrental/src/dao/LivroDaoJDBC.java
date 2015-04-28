@@ -16,12 +16,18 @@ public class LivroDaoJDBC extends LivroDao {
 	@Override
 	public void adiciona_(Livro livro) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "insert into livros (titulo,autor,editora) values (?,?,?)";
+		String sql = "insert into livros (ISBN, titulo,autor,editora, ano, edicao, sinopse, numpaginas, idioma) values (?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, livro.getTitulo());
+			stmt.setLong(1, livro.getISBN());
+			stmt.setString(2, livro.getTitulo());
 			stmt.setString(2, livro.getAutor());
 			stmt.setString(3, livro.getEditora());
+			stmt.setInt(4, livro.getAno());
+			stmt.setInt(5, livro.getEdicao());
+			stmt.setString(6, livro.getSinopse());
+			stmt.setInt(7, livro.getNumPaginas());
+			stmt.setString(8, livro.getIdioma());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -34,12 +40,18 @@ public class LivroDaoJDBC extends LivroDao {
 	@Override
 	public void atualiza_(Livro livro) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "update livros set autor = ?, editora = ? where titulo = ?";
+		String sql = "update livros set autor = ?, editora = ?, editora = ?, ano = ?, edicao = ?, sinopse = ?, numpaginas = ?, idioma = ? where titulo = ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, livro.getAutor());
-			stmt.setString(2, livro.getEditora());
-			stmt.setString(3, livro.getTitulo());
+			stmt.setLong(1, livro.getISBN());
+			stmt.setString(2, livro.getTitulo());
+			stmt.setString(2, livro.getAutor());
+			stmt.setString(3, livro.getEditora());
+			stmt.setInt(4, livro.getAno());
+			stmt.setInt(5, livro.getEdicao());
+			stmt.setString(6, livro.getSinopse());
+			stmt.setInt(7, livro.getNumPaginas());
+			stmt.setString(8, livro.getIdioma());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {

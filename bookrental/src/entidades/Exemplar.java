@@ -68,6 +68,7 @@ public class Exemplar implements Serializable {
 	 *------------------------------------------------------------------------------*/
 	public void modificaProprietario(Usuario novoProprietario){
 		this.proprietario=novoProprietario;
+		this.historicoProprietario.add(novoProprietario);
 		//modifica quando a entrega é confirmada. Atualiza o histórico.
 	}
 	
