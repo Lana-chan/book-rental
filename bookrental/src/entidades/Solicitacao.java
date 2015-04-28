@@ -2,6 +2,11 @@ package entidades;
 import java.io.Serializable;
 
 public class Solicitacao implements Serializable {
+<<<<<<< HEAD
+=======
+	
+	private static final long serialVersionUID = 1L;
+>>>>>>> origin/master
 	
 	private static final long serialVersionUID = 1L;
 	private Usuario doador;

@@ -5,6 +5,7 @@ import java.util.*;
 public class Exemplar implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	
 	private Livro livro;
 	private boolean disponivel;
 	private Usuario proprietario;
@@ -12,24 +13,22 @@ public class Exemplar implements Serializable {
 	private List<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
 	private String foto;
 	
-	
 	public Exemplar() {
 		
 	}
 	
 	public Exemplar (Livro livro, Usuario proprietario, String foto){
-		setLivro(livro);
-		setProprietario(proprietario);
-		setFoto(foto);
+		this.setLivro(livro);
+		this.setProprietario(proprietario);
+		this.setFoto(foto);
 	}
-	
 	
 	/*-------------------------------------------------------------------------------
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
 	
 	public Livro getLivro() {
-		return livro;
+		return this.livro;
 	}
 
 	public void setLivro(Livro livro) {
@@ -37,7 +36,7 @@ public class Exemplar implements Serializable {
 	}
 	
 	public boolean getDisponivel() {
-		return disponivel;
+		return this.disponivel;
 	}
 	
 	public void setDisponivel(boolean disponivel) {
@@ -45,7 +44,7 @@ public class Exemplar implements Serializable {
 	}
 	
 	public Usuario getProprietario() {
-		return proprietario;
+		return this.proprietario;
 	}
 
 	public void setProprietario(Usuario novoProprietario) {
@@ -53,7 +52,7 @@ public class Exemplar implements Serializable {
 	}
 	
 	public List<Usuario> getHistoricoProprietario() { //é uma lista
-		return historicoProprietario;
+		return this.historicoProprietario;
 	}
 	
 	public void setHistoricoProprietario(Usuario novoProprietario){
@@ -61,7 +60,7 @@ public class Exemplar implements Serializable {
 	}
 	
 	public String getFoto() {
-		return foto;
+		return this.foto;
 	}
 
 	public void setFoto(String foto) {
@@ -72,8 +71,13 @@ public class Exemplar implements Serializable {
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
 	public void modificaProprietario(Usuario novoProprietario){
+<<<<<<< HEAD
 		setProprietario(novoProprietario);
 		setHistoricoProprietario(novoProprietario);
+=======
+		this.proprietario=novoProprietario;
+		this.historicoProprietario.add(novoProprietario);
+>>>>>>> origin/master
 		//modifica quando a entrega é confirmada. Atualiza o histórico.
 	}
 	

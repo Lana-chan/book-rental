@@ -16,7 +16,11 @@ public class LivroDaoJDBC extends LivroDao {
 	@Override
 	public void adiciona_(Livro livro) {
 		Connection connection = connectionFactory.getConnection();
+<<<<<<< HEAD
 		String sql = "insert into livros (ISBN, titulo,autor,editora, ano, edicao, sinopse, numPaginas, idioma) values (?,?,?,?,?,?,?,?)";
+=======
+		String sql = "insert into livros (ISBN, titulo,autor,editora, ano, edicao, sinopse, numpaginas, idioma) values (?,?,?,?,?,?,?,?)";
+>>>>>>> origin/master
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, livro.getISBN());
@@ -40,7 +44,11 @@ public class LivroDaoJDBC extends LivroDao {
 	@Override
 	public void atualiza_(Livro livro) {
 		Connection connection = connectionFactory.getConnection();
+<<<<<<< HEAD
 		String sql = "update livros set autor = ?, editora = ?, editora = ?, ano = ?, edicao = ?, sinopse = ?, numPaginas = ?, idioma = ? where titulo = ?";
+=======
+		String sql = "update livros set autor = ?, editora = ?, editora = ?, ano = ?, edicao = ?, sinopse = ?, numpaginas = ?, idioma = ? where titulo = ?";
+>>>>>>> origin/master
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, livro.getISBN());

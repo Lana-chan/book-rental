@@ -5,6 +5,10 @@ import java.util.Date;
 public class Notificacao implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> origin/master
 	private Usuario remetente;
 	private Usuario destinatario;
 	private String mensagem;
