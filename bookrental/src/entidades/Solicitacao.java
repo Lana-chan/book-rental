@@ -60,14 +60,14 @@ public class Solicitacao implements Serializable {
 			
 			//Altera-se o nome do proprietario
 			this.exemplar.modificaProprietario(this.receptor);
-			
+		
 		} else {
-			//Exclui o exemplar da lista de exemplares do receptor. Coloca o exemplar como disponivel. 
-			this.receptor.removeExemplar(this.exemplar);
 			this.exemplar.setDisponivel(true);
-			
 		}
-		}
+		
+		//Exclui a solicitação
+		this.exemplar.excluiSolicitacao(this);
+	}
 	
 	public Avaliacao criaAvaliacao(int nota, String comentario){
 		Avaliacao novaAvaliacao= new Avaliacao(nota, comentario, this.receptor);
