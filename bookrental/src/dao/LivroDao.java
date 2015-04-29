@@ -12,22 +12,22 @@ public abstract class LivroDao {
 	final Collator comparadorDeStrings = Collator.getInstance();
 
 	public LivroDao() {
-		// Isto é para ignorar os acentos nas comparações de Strings
+		// Isto ≈Ω para ignorar os acentos nas comparaÔøΩ‚Ä∫es de Strings
 		comparadorDeStrings.setStrength(Collator.NO_DECOMPOSITION);
 	}
 
 	public void adiciona(Livro livro) {
 		if (livro == null) {
-			throw new IllegalArgumentException("Parâmetro livro não pode ser nulo.");
+			throw new IllegalArgumentException("Par√¢metro livro n√£o pode ser nulo.");
 		}
 
 		if (livro.getTitulo() == null) {
-			throw new IllegalArgumentException("Não é possível adicionar um livro sem título.");
+			throw new IllegalArgumentException("N√£o √© possivel adicionar um livro sem t√≠tulo.");
 		}
 
 		if (buscaPorTitulo(livro.getTitulo()) != null) {
-			throw new IllegalArgumentException("Já existe um livro com o título \"" + livro.getTitulo()
-					+ "\" na base de dados.");
+			throw new IllegalArgumentException("J√° existe um livro com o t√≠tulo: " + livro.getTitulo()
+					+ " na base de dados.");
 		}
 
 		adiciona_(livro);
@@ -37,15 +37,15 @@ public abstract class LivroDao {
 
 	public void atualiza(Livro livro) {
 		if (livro == null) {
-			throw new IllegalArgumentException("Parâmetro livro não pode ser nulo.");
+			throw new IllegalArgumentException("Par√¢metro livro n√£o pode ser nulo.");
 		}
 
 		if (livro.getTitulo() == null) {
-			throw new IllegalArgumentException("Não é possível atualizar um livro sem título.");
+			throw new IllegalArgumentException("N√£o √© poss√≠vel atualizar um livro sem t√≠tulo.");
 		}
 
 		if (buscaPorTitulo(livro.getTitulo()) == null) {
-			throw new IllegalArgumentException("Não existe livro com o título\"" + livro.getTitulo() + "\" na base de dados.");
+			throw new IllegalArgumentException("N√£o existe livro com o t√≠tulo: " + livro.getTitulo() + " na base de dados.");
 		}
 
 		atualiza_(livro);
@@ -55,7 +55,7 @@ public abstract class LivroDao {
 
 	public Livro buscaPorTitulo(String titulo) {
 		if (titulo == null) {
-			throw new IllegalArgumentException("Parâmetro titulo não pode ser nulo.");
+			throw new IllegalArgumentException("Par√¢metro titulo n‚Äπo pode ser nulo.");
 		}
 
 		return buscaPorTitulo_(titulo);
@@ -65,15 +65,15 @@ public abstract class LivroDao {
 
 	public void remove(Livro livro) {
 		if (livro == null) {
-			throw new IllegalArgumentException("Parâmetro livro não pode ser nulo.");
+			throw new IllegalArgumentException("Par√¢metro livro n‚Äπo pode ser nulo.");
 		}
 
 		if (livro.getTitulo() == null) {
-			throw new IllegalArgumentException("Não é possível remover um livro sem título.");
+			throw new IllegalArgumentException("N√£o √© poss√≠vel remover um livro sem t√≠tulo.");
 		}
 
 		if (buscaPorTitulo(livro.getTitulo()) == null) {
-			throw new IllegalArgumentException("Não existe livro com o título\"" + livro.getTitulo() + "\" na base de dados.");
+			throw new IllegalArgumentException("N√£o existe livro com o t√≠tulo: " + livro.getTitulo() + " na base de dados.");
 		}
 
 		remove_(livro);

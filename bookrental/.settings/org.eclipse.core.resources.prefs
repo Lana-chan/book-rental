@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/dao/LivroDao.java=UTF-8
+encoding//src/dao/UsuarioDao.java=UTF-8
 encoding//src/entidades/Livro.java=UTF-8
 encoding//src/testes/TestaDaos.java=UTF-8

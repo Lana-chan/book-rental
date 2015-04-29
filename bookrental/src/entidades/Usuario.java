@@ -21,7 +21,7 @@ public class Usuario implements Serializable {
 	}
 	
 	public Usuario(int numUSP, String nome, Unidade unidade, String email) {
-		this.setNumUSP(numUSP);
+		this.setNumUsp(numUSP);
 		this.setNome(nome);
 		this.setUnidade(unidade);
 		this.setEmail(email);
@@ -31,11 +31,11 @@ public class Usuario implements Serializable {
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
 	
-	public int getNumUSP() {
+	public int getNumUsp() {
 		return this.numUSP;
 	}
 
-	public void setNumUSP(int numUsp) {
+	public void setNumUsp(int numUsp) {
 		this.numUSP = numUsp;
 	}
 	
