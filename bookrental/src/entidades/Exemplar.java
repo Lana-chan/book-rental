@@ -18,9 +18,9 @@ public class Exemplar implements Serializable {
 	}
 	
 	public Exemplar (Livro livro, Usuario proprietario, String foto){
-		setLivro(livro);
-		setProprietario(proprietario);
-		setFoto(foto);
+		this.setLivro(livro);
+		this.setProprietario(proprietario);
+		this.setFoto(foto);
 	}
 	
 	
@@ -29,7 +29,7 @@ public class Exemplar implements Serializable {
 	 *------------------------------------------------------------------------------*/
 	
 	public Livro getLivro() {
-		return livro;
+		return this.livro;
 	}
 
 	public void setLivro(Livro livro) {
@@ -37,7 +37,7 @@ public class Exemplar implements Serializable {
 	}
 	
 	public boolean getDisponivel() {
-		return disponivel;
+		return this.disponivel;
 	}
 	
 	public void setDisponivel(boolean disponivel) {
@@ -45,19 +45,23 @@ public class Exemplar implements Serializable {
 	}
 	
 	public Usuario getProprietario() {
-		return proprietario;
+		return this.proprietario;
 	}
 
-	public void setProprietario(Usuario proprietario) {
-		this.proprietario = proprietario;
+	public void setProprietario(Usuario novoProprietario) {
+		this.proprietario = novoProprietario;
 	}
 	
 	public List<Usuario> getHistoricoProprietario() { //é uma lista
-		return historicoProprietario;
+		return this.historicoProprietario;
+	}
+	
+	public void setHistoricoProprietario(Usuario novoProprietario){
+		this.historicoProprietario.add(novoProprietario);
 	}
 	
 	public String getFoto() {
-		return foto;
+		return this.foto;
 	}
 
 	public void setFoto(String foto) {
@@ -68,8 +72,9 @@ public class Exemplar implements Serializable {
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
 	public void modificaProprietario(Usuario novoProprietario){
-		this.proprietario=novoProprietario;
-		//modifica quando a entrega é confirmada. Atualiza o histórico.
+		//exemplar muda de proprietario, atualiza o historico
+		setProprietario(novoProprietario);
+		setHistoricoProprietario(novoProprietario);
 	}
 	
 	public void incluiSolicitacao (Solicitacao solicitacao) {
@@ -79,6 +84,8 @@ public class Exemplar implements Serializable {
 	public void excluiSolicitacao (Solicitacao solicitacao) {
 		this.solicitacoes.remove(solicitacao);
 	}
+	
+
 	
 	
 }

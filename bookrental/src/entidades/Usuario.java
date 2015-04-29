@@ -13,6 +13,8 @@ public class Usuario implements Serializable {
 	private String foto;
 	private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
 	private List<Avaliacao> reputacao = new ArrayList<Avaliacao>(); //lista
+
+	private java.sql.Date date;
 	
 	public Usuario () {
 		
@@ -61,41 +63,51 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 	
+	public List<Exemplar> getColecao() { //é uma lista
+		return colecao;
+	}
+	
 
 	/*-------------------------------------------------------------------------------
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
 	
-	public Exemplar incluiExemplar(Exemplar exemplar){
-		Exemplar incluso;
-		incluso = new Exemplar(); //substituir
-		return incluso;
+	public boolean incluiExemplar(Exemplar exemplar){
+		return this.colecao.add(exemplar);
 	}
 
-	public void removeExemplar(Exemplar exemplar){
-		//talvez bool pra retornar se deu certo
+	public boolean removeExemplar(Exemplar exemplar){
+		return this.colecao.remove(exemplar);
 	}
 
-	public void cadastraLivro(Livro livro){
-
-	}
-	
-	public void criaAvaliacao(Avaliacao avaliacao){
-		//a pensar
-	}
-
-	public void incluiReputacao(Avaliacao novaAvaliacao){
+	public void cadastraLivro(){
 		
 	}
 	
+
+	public void incluiReputacao(Avaliacao novaAvaliacao){
+		this.reputacao.add(novaAvaliacao);
+	}
+	
+	public double calculaMediaReputacao(){
+		double media = 0;
+		for (Avaliacao aux : this.reputacao)
+		   media += aux.getNota();
+		media = media/this.reputacao.size();
+		
+		return media;
+	}
 	
 	public void criaSolicitacao(Exemplar exemplar, String mensagem){
 		//qndo a pessoa clicar no botão, requisitar livro.
 		Solicitacao solic = new Solicitacao(exemplar.getProprietario(), this, exemplar, mensagem);
 		exemplar.incluiSolicitacao(solic);
+		
+		Notificacao notifica=new Notificacao(this, exemplar.getProprietario(), " ", this.date);
 	}
 	
 	public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
 		//confirma se vai doar ou não ao possível receptor.
 	}	
+	
 }
