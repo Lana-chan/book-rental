@@ -1,7 +1,7 @@
 package entidades;
 import java.io.Serializable;
 
-public class Avaliacao implements Serializable {
+public class Avaliacao {
 	
 	private static final long serialVersionUID = 1L;
 	private int nota;

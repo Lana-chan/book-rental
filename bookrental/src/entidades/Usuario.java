@@ -1,10 +1,8 @@
 package entidades;
-import java.io.Serializable;
 import java.util.*;
 
-public class Usuario implements Serializable {
+public class Usuario  {
 	
-	private static final long serialVersionUID = 1L;
 	
 	private int numUSP;
 	private String nome;

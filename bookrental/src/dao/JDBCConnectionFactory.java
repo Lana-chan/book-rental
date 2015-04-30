@@ -1,5 +1,7 @@
 package dao;
 
+//http://www.easywayserver.com/blog/save-serializable-object-in-java/
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -35,7 +37,7 @@ public class JDBCConnectionFactory {
 		 Statement stmt = null;
 		 stmt = c.createStatement();
 	      String sql = "CREATE TABLE livro " +
-                       "(id           	INT 	AUTO_INCREMENT, " + 
+                       "(PRIMARY KEY (id)  	unsigned	NOT NULL 	AUTO_INCREMENT, " + 
                   	   "(ISBN           BIGINT  NOT NULL, " + 
 	                   " tiutlo         TEXT    NOT NULL, " +
 	                   " autor          TEXT    NOT NULL, " + 
