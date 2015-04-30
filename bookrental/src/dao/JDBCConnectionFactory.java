@@ -35,7 +35,8 @@ public class JDBCConnectionFactory {
 		 Statement stmt = null;
 		 stmt = c.createStatement();
 	      String sql = "CREATE TABLE livro " +
-	                   "(ISBN           BIGINT  NOT NULL, " + 
+                       "(id           	INT 	AUTO_INCREMENT, " + 
+                  	   "(ISBN           BIGINT  NOT NULL, " + 
 	                   " tiutlo         TEXT    NOT NULL, " +
 	                   " autor          TEXT    NOT NULL, " + 
 	                   " editora        TEXT    NOT NULL," + 
@@ -51,42 +52,42 @@ public class JDBCConnectionFactory {
 	                   " unidade        TEXT    NOT NULL, " + //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
 	                   " email       	TEXT    NOT NULL, " +
 	                   " foto          	TEXT    NOT NULL, " + 
-	                   " colecao 		TEXT	NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
+	                   " colecao 		TEXT	NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista, talvez só precisa de select e não campo
 	                   " reputacao      TEXT    NOT NULL)"; //private List<Avaliacao> reputacao = new ArrayList<Avaliacao>(); //lista
 	                   
 	      //tabela avaliacao
 	      	String sql3 = "CREATE TABLE Avaliacao " +
 	      				"(nota          	INT    NOT NULL, " +
 	      				" comentario        TEXT    NOT NULL, " +
-	      				" critico           TEXT    NOT NULL)"; //é do tipo usuario
+	      				" FOREIGN KEY critico REFERENCES Usuario(id)       TEXT    NOT NULL)"; //é do tipo usuario
 	      				
 		  //tabela SOLICITAÇÃO
 	      String sql4 = "CREATE TABLE Solicitacao" +
 				        "(exemplar						Exemplar	NOT NULL,"+
-				        " doador						Usuario	NOT NULL,"+
-				        " receptor        				Usuario    NOT NULL, " + //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
-				        " solicitacaoDeferida       	TEXT    NOT NULL, " +
-				        " confirmaEntregaDoador         TEXT    NOT NULL, " + 
-				        " confirmaEntregaReceptor 		TEXT	NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
-				        " mensagem				      	TEXT    NOT NULL)";      
+				        " doador						Usuario		NOT NULL,"+
+				        " FOREIGN KEY receptor  REFERENCES  Usuario(id) 	NOT NULL, " + //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
+				        " solicitacaoDeferida       	TEXT    	NOT NULL, " +
+				        " confirmaEntregaDoador         TEXT    	NOT NULL, " + 
+				        " confirmaEntregaReceptor 		TEXT		NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
+				        " mensagem				      	TEXT    	NOT NULL)";      
 		 
 		  //tabela EXEMPLAR
 	      String sql5 = "CREATE TABLE Exemplar" +
-				        "(livro						Livro			NOT NULL,"+
-				        " disponivel				Usuario			NOT NULL,"+
-				        " proprietario        		Usuario    		NOT NULL,"+ //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
-				        " historicoProprietario     TEXT    		NOT NULL,"+
-				        " confirmaEntregaDoador     TEXT    		NOT NULL,"+ 
-				        " confirmaEntregaReceptor 	TEXT			NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
-				        " solicitacoes				Solicitacoes    NOT NULL,"+
-				        " foto						TEXT			NOT NULL)"; 
+				        "(FOREIGN KEY livro	REFERENCES Livro(id),"+
+				        " disponivel					Usuario			NOT NULL,"+
+				        " FOREIGN KEY proprietario  REFERENCES  Usuario(numUsp) 	NOT NULL,"+ 
+				        " FOREIGN KEY receptor  REFERENCES  Usuario(numUsp) 	NOT NULL,"+
+				        " confirmaEntregaDoador     	TEXT    		NOT NULL,"+ 
+				        " confirmaEntregaReceptor 		TEXT			NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
+				        " solicitacoes					Solicitacoes    NOT NULL,"+
+				        " foto							TEXT			NOT NULL)"; 
 	     
 		  //tabela NOTIFICACAO
 	      String sql6 = "CREATE TABLE Notificacao" +
 				        "(remetente					Livro			NOT NULL,"+
 				        " destinatario				Usuario			NOT NULL,"+
-				        " mensagem        			TEXT    		NOT NULL, "+ //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
-				        " data     					TIMESTAMP    		NOT NULL, "+
+				        " mensagem        			TEXT    		NOT NULL, "+ 
+				        " data     					TIMESTAMP    	NOT NULL, "+
 				        " lida     					BOOLEAN    		NOT NULL)";
 
 	 }

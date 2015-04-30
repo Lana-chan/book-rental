@@ -7,27 +7,25 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import entidades.Exemplar;
 import entidades.Livro;
 
-public class ExemplarDaoJDBC extends LivroDao {
+public class ExemplarDaoJDBC extends ExemplarDao {
 
 	private JDBCConnectionFactory connectionFactory = new JDBCConnectionFactory();
 
 	@Override
-	public void adiciona_(Livro livro) {
+	public void adiciona_(Exemplar exemplar) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "insert into livros (ISBN, titulo,autor,editora, ano, edicao, sinopse, numPaginas, idioma) values (?,?,?,?,?,?,?,?)";
+		String sql = "insert into exemplar (livro, disponivel, proprietario, historicoProprietario, solicitacoes, foto) values (?,?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setLong(1, livro.getISBN());
-			stmt.setString(2, livro.getTitulo());
-			stmt.setString(2, livro.getAutor());
-			stmt.setString(3, livro.getEditora());
-			stmt.setInt(4, livro.getAno());
-			stmt.setInt(5, livro.getEdicao());
-			stmt.setString(6, livro.getSinopse());
-			stmt.setInt(7, livro.getNumPaginas());
-			stmt.setString(8, livro.getIdioma());
+			stmt.setObject(1, exemplar.getLivro());
+			stmt.setBoolean(2, exemplar.getDisponivel());
+			stmt.setObject(3, exemplar.getProprietario());
+			stmt.setObject(4, exemplar.getHistoricoProprietario());
+			stmt.setObject(5, exemplar.getSolicitacoes());
+			stmt.setString(6, exemplar.getFoto());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -38,20 +36,18 @@ public class ExemplarDaoJDBC extends LivroDao {
 	}
 
 	@Override
-	public void atualiza_(Livro livro) {
+	public void atualiza_(Exemplar exemplar) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "update livros set autor = ?, editora = ?, editora = ?, ano = ?, edicao = ?, sinopse = ?, numPaginas = ?, idioma = ? where titulo = ?";
+		String sql = "update livros set livro=?, disponivel=?, proprietario=?, historicoProprietario=?, solicitacoes=?, foto=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setLong(1, livro.getISBN());
-			stmt.setString(2, livro.getTitulo());
-			stmt.setString(2, livro.getAutor());
-			stmt.setString(3, livro.getEditora());
-			stmt.setInt(4, livro.getAno());
-			stmt.setInt(5, livro.getEdicao());
-			stmt.setString(6, livro.getSinopse());
-			stmt.setInt(7, livro.getNumPaginas());
-			stmt.setString(8, livro.getIdioma());
+			stmt.setObject(1, exemplar.getLivro());
+			stmt.setBoolean(2,exemplar.getDisponivel());
+			stmt.setObject(3, exemplar.getProprietario());
+			stmt.setObject(4, exemplar.getHistoricoProprietario());
+			stmt.setObject(5, exemplar.getSolicitacoes());
+			stmt.setString(6, exemplar.getFoto());
+			stmt.execute();
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -62,13 +58,13 @@ public class ExemplarDaoJDBC extends LivroDao {
 	}
 
 	@Override
-	public Livro buscaPorTitulo_(String titulo) {
+	public Exemplar buscaPorExemplar_(Exemplar exemplar) {
 		Connection connection = new JDBCConnectionFactory().getConnection();
 		PreparedStatement stmt;
 		Livro livro = null;
 		try {
-			stmt = connection.prepareStatement("select * from livros where titulo=?");
-			stmt.setString(1, titulo);
+			stmt = connection.prepareStatement("select * from Exemplar where titulo=?");
+			stmt.setString(1, exemplar);
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
@@ -96,7 +92,7 @@ public class ExemplarDaoJDBC extends LivroDao {
 	}
 
 	@Override
-	public void remove_(Livro livro) {
+	public void remove_(Exemplar livro) {
 		Connection connection = new JDBCConnectionFactory().getConnection();
 		PreparedStatement stmt;
 		try {
@@ -112,7 +108,7 @@ public class ExemplarDaoJDBC extends LivroDao {
 	}
 
 	@Override
-	public List<Livro> listaTodos() {
+	public List<Exemplar> listaTodos() {
 		Connection connection = new JDBCConnectionFactory().getConnection();
 		PreparedStatement stmt;
 		LinkedList<Livro> livros = new LinkedList<Livro>();

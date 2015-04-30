@@ -22,15 +22,13 @@ public abstract class ExemplarDao {
 			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
 		}
 
-		if (exemplar.getLivro() == null) {
-			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem livro.");
+		if (exemplar.getProprietario() == null) {
+			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem proprietario.");
 		}
-
-		/* pode existir mais de um exemplar por livro
-		if (buscaPorTitulo(livro.getTitulo()) != null) {
-			throw new IllegalArgumentException("J‡ existe um livro com o t’tulo \"" + livro.getTitulo()
-					+ "\" na base de dados.");
-		}*/
+		
+		if (exemplar.getLivro() == null) {
+			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem ser referenciado a um livro existente.");
+		}
 
 		adiciona_(exemplar);
 	}
@@ -42,8 +40,8 @@ public abstract class ExemplarDao {
 			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
 		}
 
-		if (exemplar.getLivro() == null) {
-			throw new IllegalArgumentException("Não é possível atualizar um exemplar sem livro.");
+		if (exemplar.getProprietario() == null) {
+			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem proprietario.");
 		}
 
 		if (buscaPorLivro(exemplar.getLivro()) == null) {
@@ -60,10 +58,10 @@ public abstract class ExemplarDao {
 			throw new IllegalArgumentException("Parâmetro livro não pode ser nulo.");
 		}
 
-		return buscaPorLivro_(livro);
+		return buscaPorExemplar_(Exemplar);
 	}
 
-	protected abstract Exemplar buscaPorLivro_(Livro livro);
+	protected abstract Exemplar buscaPorExemplar_(Exemplar exemplar);
 
 	public void remove(Exemplar exemplar) {
 		if (exemplar == null) {

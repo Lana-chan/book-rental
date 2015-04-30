@@ -82,7 +82,9 @@ public class Usuario implements Serializable {
 
 	public Livro cadastraLivro(long ISBN, String titulo, String autor, String editora, int ano, int edicao, String sinopse, 
 								int numPaginas, String idioma, Usuario proprietario, String foto){
-		Livro novoLivro=new Exemplar (ISBN, titulo, autor, editora, ano, edicao, sinopse, numPaginas, idioma, this, foto);
+		Livro novoLivro=new Livro (ISBN, titulo, autor, editora, ano, edicao, sinopse, numPaginas, idioma);
+		Exemplar novoExemplar=new Exemplar(novoLivro, proprietario, foto);
+		incluiExemplar(novoExemplar);
 		return novoLivro;
 	}
 	
@@ -105,19 +107,19 @@ public class Usuario implements Serializable {
 		exemplar.incluiSolicitacao(solic);
 		
 		Notificacao notifica=new Notificacao(this, exemplar.getProprietario(), 
-				this.nome+ " solicita seu exemplar de "+ exemplar.getTitulo(), this.date);
+				this.nome+ " solicita seu exemplar de "+ exemplar.getLivro().getTitulo(), this.date);
 	}
 	
 	public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
 		//confirma se vai doar ou não ao possível receptor.
 		if (resposta==true){
 			Notificacao notifica=new Notificacao(this, solicitacao.getDoador(), 
-					this.nome+ " aceita doar "+ solicitacao.getExemplar().getTitulo(), this.date);
+					this.nome+ " aceita doar "+ solicitacao.getExemplar().getLivro().getTitulo(), this.date);
 			solicitacao.confirmaEntrega(true);
 			
 		} else {
 			Notificacao notifica=new Notificacao(this, solicitacao.getDoador(), 
-					this.nome+ " não aceita doar "+ solicitacao.getExemplar().getTitulo(), this.date);
+					this.nome+ " não aceita doar "+ solicitacao.getExemplar().getLivro().getTitulo(), this.date);
 			solicitacao.confirmaEntrega(true);
 			
 		}

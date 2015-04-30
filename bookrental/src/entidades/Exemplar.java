@@ -63,6 +63,10 @@ public class Exemplar implements Serializable  {
 		this.historicoProprietario.add(novoProprietario);
 	}
 	
+	public List<Solicitacao> getSolicitacoes() { //é uma lista
+		return this.solicitacoes;
+	}
+	
 	public String getFoto() {
 		return this.foto;
 	}
