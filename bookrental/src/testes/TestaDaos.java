@@ -19,6 +19,7 @@ public class TestaDaos {
 			"Joaquim Manuel Macedo", "Luís de Camões", "José de Alencar", "Machado de Assis", "Mário de Andrade",
 			"Aluísio Azevedo", "Clarice Lispector", "Manuel Antônio de Almeida", "Euclides da Cunha", "Gil Vicente" };
 
+
 	static final String[] editoras = { "Editora Abril", "Editora ABC", "Editora Alpha", "Editora Beta", "Editora Abril",
 			"Editora ABC", "Editora Alpha", "Editora Beta", "Editora Abril", "Editora ABC", "Editora Alpha", "Editora Beta",
 			"Editora Abril", "Editora ABC" };

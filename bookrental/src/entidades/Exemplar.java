@@ -2,10 +2,10 @@ package entidades;
 import java.io.Serializable;
 import java.util.*;
 
-public class Exemplar extends Livro implements Serializable  {
+public class Exemplar implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;
-	//private Livro livro;
+	private Livro livro;
 	private boolean disponivel;
 	private Usuario proprietario;
 	private List<Usuario> historicoProprietario = new ArrayList<Usuario>();
@@ -17,9 +17,9 @@ public class Exemplar extends Livro implements Serializable  {
 		
 	}
 	
-	public Exemplar (long ISBN, String titulo, String autor, String editora, int ano, int edicao, String sinopse, int numPaginas, String idioma, Usuario proprietario, String foto){
-		super(ISBN, titulo, autor, editora, ano, edicao, sinopse, numPaginas, idioma);
-		//this.setLivro(livro);
+	public Exemplar (Livro livro, Usuario proprietario, String foto){
+		//super(ISBN, titulo, autor, editora, ano, edicao, sinopse, numPaginas, idioma);
+		this.setLivro(livro);
 		this.setDisponivel(true);
 		this.setProprietario(proprietario);
 		this.historicoProprietario.add(proprietario);
@@ -30,7 +30,7 @@ public class Exemplar extends Livro implements Serializable  {
 	/*-------------------------------------------------------------------------------
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
-/*	
+	
 	public Livro getLivro() {
 		return this.livro;
 	}
@@ -38,7 +38,7 @@ public class Exemplar extends Livro implements Serializable  {
 	public void setLivro(Livro livro) {
 		this.livro = livro;
 	}
-*/
+
 	public boolean getDisponivel() {
 		return this.disponivel;
 	}
@@ -89,6 +89,8 @@ public class Exemplar extends Livro implements Serializable  {
 	}
 	
 
+	
+	
 	
 	
 }
