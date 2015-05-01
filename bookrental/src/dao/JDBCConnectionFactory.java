@@ -48,74 +48,97 @@ public class JDBCConnectionFactory {
 		String limpaDatabase=" DROP TABLE IF EXISTS Livro; DROP TABLE IF EXISTS Usuario; DROP TABLE IF EXISTS Avaliacao; "+
 							" DROP TABLE IF EXISTS Exemplar;DROP TABLE IF EXISTS Solicitacao; DROP TABLE IF EXISTS Notificacao;";
 	      String sql = " CREATE table Livro (" +
-                       "ISBN     				BIGINT    	NOT NULL PRIMARY KEY, " + 
-	                   " titulo         		TEXT   	NOT NULL, " +
-	                   " autor          		TEXT   	NOT NULL, " + 
-	                   " editora        		TEXT   	NOT NULL," + 
-	                   " ano					INT		NOT NULL," +
-	                   " edicao					INT		NOT NULL," +	                   
-	                   " numPaginas				INT		NOT NULL," +
-	                   " idioma         		TEXT    NOT NULL, " + 
-	                   " sinopse        		TEXT    NOT NULL ); " +
-	      //tabela usuario
+                       " ISBN     					BIGINT  	NOT NULL , " + 
+	                   " titulo         			TEXT   		NOT NULL, " +
+	                   " autor          			TEXT   		NOT NULL, " + 
+	                   " editora        			TEXT   		NOT NULL," + 
+	                   " ano						INT			NOT NULL," +
+	                   " edicao						INT			NOT NULL," +	                   
+	                   " numPaginas					INT			NOT NULL," +
+	                   " idioma         			TEXT    	NOT NULL, " + 
+	                   " sinopse        			TEXT    	NOT NULL, " +
+	                   " PRIMARY KEY(ISBN)); " +
 	      
-	      				"CREATE TABLE Usuario (" +
-	                   " numUsp					TEXT	NOT NULL	PRIMARY KEY,"+
-	                   " nome					TEXT	NOT NULL,"+
-	                   " unidade        		TEXT    NOT NULL, " + //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
-	                   " email       			TEXT    NOT NULL, " +
-	                   " foto          			TEXT    NOT NULL, " + 
-	                   " colecao 				TEXT	NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista, talvez só precisa de select e não campo
-	                   " reputacao      		TEXT    NOT NULL); " +//private List<Avaliacao> reputacao = new ArrayList<Avaliacao>(); //lista
-	                   
+	      //tabela usuario
+	      			   " CREATE TABLE Usuario (" +
+	                   " numUsp						int			NOT NULL,"+
+	                   " nome						TEXT		NOT NULL,"+
+	                   " unidade        			TEXT    	NOT NULL, " + //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
+	                   " email       				TEXT    	NOT NULL, " +
+	                   " foto          				TEXT    	NOT NULL," +
+	                   " PRIMARY KEY(numUsp)); " +	                   
+ 
 	      //tabela avaliacao
-	      				"CREATE TABLE Avaliacao (" +
-	      				"id  				INT		AUTO_INCREMENT, " + 
-	      				" nota          	INT    NOT NULL, " +
-	      				" comentario        TEXT    NOT NULL, " +
-	      				" critico			TEXT    NOT NULL," +
-	      				" FOREIGN KEY (critico) REFERENCES Usuario(numUsp)" +
-	      				"PRIMARY KEY	(id)); "; /* +
-		  //tabela EXEMPLAR
+	      				" CREATE TABLE Avaliacao (" +
+	      				" id  						INT			AUTO_INCREMENT, " + 
+	      				" nota          			INT    		NOT NULL, " +
+	      				" comentario        		TEXT    	NOT NULL, " +
+	      				" critico					int    		NOT NULL," +
+	      				" FOREIGN KEY (critico) 	REFERENCES 	Usuario(numUsp)," +
+	      				" PRIMARY KEY	(id)); "  +
+		 
+	      	//tabela EXEMPLAR
 		  				"CREATE TABLE Exemplar (" +
-				        "id  			unsigned	NOT NULL	PRIMARY KEY	AUTO_INCREMENT, " + 
-	      				"FOREIGN KEY (livro)	REFERENCES Livro(ISBN),"+
-				        " disponivel					boolean			NOT NULL,"+
-				        " FOREIGN KEY (proprietario)  REFERENCES  Usuario(numUsp) 	NOT NULL,"+ 
-				        " FOREIGN KEY (receptor)  	REFERENCES  Usuario(numUsp) 	NOT NULL,"+
-				        " confirmaEntregaDoador     	boolean    		NOT NULL,"+ 
-				        " confirmaEntregaReceptor 		boolean			NOT NULL,"+ 
-				      //  " solicitacoes					Solicitacoes    NOT NULL,"+
-				        " foto							TEXT			NOT NULL);"
-	      				+
+				        " id  							int 		AUTO_INCREMENT, " + 
+		  				" livro							bigint		NOT NULL, "+
+				        " disponivel					boolean		NOT NULL,"+
+		  				" proprietario					int			NOT NULL,"+
+				        " receptor						int			NOT NULL,"+
+				        " confirmaEntregaDoador     	boolean    	NOT NULL,"+ 
+				        " confirmaEntregaReceptor 		boolean		NOT NULL,"+ 
+				        " foto							TEXT		NOT NULL, "+
+				        " FOREIGN KEY (proprietario)  	REFERENCES  Usuario(numUsp),"+ 
+				        " FOREIGN KEY (receptor)  		REFERENCES  Usuario(numUsp),"+
+				        " FOREIGN KEY (livro)			REFERENCES 	Livro(ISBN),"+
+				        " PRIMARY KEY	(id));" +
+	      				
 	      //tabela SOLICITAÇÃO
 	      				"CREATE TABLE Solicitacao (" +
-				        "id  	unsigned	NOT NULL 	PRIMARY KEY		AUTO_INCREMENT, " + 
-	      				" FOREIGN KEY (exemplar)			REFERENCES	Exemplar(id)	NOT NULL,"+
-				        " FOREIGN KEY (doador)			REFERENCES  Usuario(numUsp)		NOT NULL,"+
-				        " FOREIGN KEY (receptor)  		REFERENCES  Usuario(numUsp) 	NOT NULL, " + //É DO TIPO UNIDADE, AINDA ESTOU EM DUVIDA
+				        " id  							int			AUTO_INCREMENT, " +
+	      				" exemplar						int			NOT NULL," +
+		  				" doador						int			NOT NULL,"+
+				        " receptor						int			NOT NULL,"+
 				        " solicitacaoDeferida       	boolean    	NOT NULL, " +
-				        " confirmaEntregaDoador         TEXT    	NOT NULL, " + 
-				        " confirmaEntregaReceptor 		TEXT		NOT NULL,"+ // private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
-				        " mensagem				      	TEXT    	NOT NULL); "
-				        +
+				        " confirmaEntregaDoador         boolean    	NOT NULL, " + 
+				        " confirmaEntregaReceptor 		boolean		NOT NULL,"+ 
+				        " mensagem				      	TEXT    	NOT NULL, " +
+	      				" FOREIGN KEY (exemplar)		REFERENCES	Exemplar(id),"+
+				        " FOREIGN KEY (doador)			REFERENCES  Usuario(numUsp),"+
+				        " FOREIGN KEY (receptor)  		REFERENCES  Usuario(numUsp), " +
+				        " PRIMARY KEY (id));"+
+				        
 		  //tabela NOTIFICACAO
 		  				"CREATE TABLE Notificacao (" +
-				        "id  	unsigned	NOT NULL 	PRIMARY KEY		AUTO_INCREMENT, " + 
-	      				" FOREIGN KEY (remetente)					REFERENCES  Usuario(numUsp)			NOT NULL,"+
-				        " FOREIGN KEY (destinatario)				REFERENCES  Usuario(numUsp)			NOT NULL,"+
-				        " mensagem        			TEXT    		NOT NULL, "+ 
-				        " data     					TIMESTAMP    	NOT NULL, "+
-				        " lida     					BOOLEAN    		NOT NULL);";
-		*/
+				        " id  							int			AUTO_INCREMENT, " + 
+		  				" remetente						int			NOT NULL,"+
+				        " destinatario					int			NOT NULL,"+
+				        " mensagem        				TEXT    	NOT NULL, "+ 
+				        " data     						TIMESTAMP   NOT NULL, "+
+				        " lida     						BOOLEAN    	NOT NULL,"+
+	      				" FOREIGN KEY (remetente)		REFERENCES  Usuario(numUsp),"+
+				        " FOREIGN KEY (destinatario)	REFERENCES  Usuario(numUsp),"+
+				        " PRIMARY KEY (id));";
+		
 	      jaRodou=true;
 	     return limpaDatabase+sql;
 	}
 	
-	/* public static void main( String args[] ) {
-		JDBCConnectionFactory j=new JDBCConnectionFactory();
-		j.getConnection();
-	 }
+	/*
+	 * Algumas outras instruções
+			//calcula reputacao
+			SELECT AVG(nota) As Reputacao From Avaliacao WHERE critico='Usuario.numUsp'
+			
+			//mostra os livros de um usuario
+			SELECT * FROM Exemplar WHERE proprietario='Usuario.numUsp'
+			
+			//notifica doador
+			SELECT * FROM Solicitacao WHERE doador='Usuario.numUsp'
+			
+			//notifica receptor
+			SELECT * FROM Solicitacao WHERE receptor='Usuario.numUsp'
+			
+			//mostra as solicitacoes de um exemplar
+			SELECT * FROM Solicitacao WHERE exemplar='exemplar.isbn'
 	*/
 	
 	
