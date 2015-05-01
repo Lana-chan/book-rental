@@ -42,14 +42,18 @@ public class TestaUsuario {
 	}
 	
 	static void testa(){
-		incluiExemplar();
-		removeExemplar();
-		cadastraLivro();
-		criaAvaliacao();
-		incluiReputacao();
-		calculaReputacao();
-		criaSolicitacao();
-		respondeSolicitacao();
+		Exemplar dummyExem = new Exemplar();
+		incluiExemplar(dummyExem);
+		removeExemplar(dummyExem);
+		Livro dummyLivro = new Livro();
+		cadastraLivro(dummyLivro);
+		criaAvaliacao(0,"a");
+		Avaliacao dummyAval = new Avaliacao();
+		incluiReputacao(dummyAval);
+		calculaReputacao(); // o que isso faz sem entrada nem saída??? -erin
+		criaSolicitacao(dummyExem,"oi");
+		Solicitacao dummySol = new Solicitacao();
+		respondeSolicitacao(dummySol, true);
 
 		
 	}
@@ -63,40 +67,43 @@ public class TestaUsuario {
 	//public void criaSolicitacao(Exemplar exemplar, String mensagem){
 	//public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta)
 	
-	public Exemplar incluiExemplar(Exemplar exemplar){
+	public static Exemplar incluiExemplar(Exemplar exemplar){
 		Exemplar incluso;
 		incluso = new Exemplar(); //substituir
 		return incluso;
 	}
 
-	public void removeExemplar(Exemplar exemplar){
+	public static void removeExemplar(Exemplar exemplar){
 		//talvez bool pra retornar se deu certo
 	}
 
-	public void cadastraLivro(Livro livro){
+	public static void cadastraLivro(Livro livro){
 
 	}
 	
-	public void criaAvaliacao(int nota, String comentario){
+	public static void criaAvaliacao(int nota, String comentario){
 		//a pensar
-		Avaliacao novaAvaliacao=new Avaliacao(nota, comentario, this);
+		//Avaliacao novaAvaliacao=new Avaliacao(nota, comentario, this);
+		//THIS não funciona em estáticos -- esse arquivo não é um objeto -erin
 	}
 
-	public void incluiReputacao(Avaliacao novaAvaliacao){
+	public static void incluiReputacao(Avaliacao novaAvaliacao){
 		
 	}
 	
-	public void calculaReputacao(){
+	public static void calculaReputacao(){
 		
 	}
 	
-	public void criaSolicitacao(Exemplar exemplar, String mensagem){
+	public static void criaSolicitacao(Exemplar exemplar, String mensagem){
 		//qndo a pessoa clicar no botão, requisitar livro.
-		Solicitacao solic = new Solicitacao(exemplar.getProprietario(), this, exemplar, mensagem);
-		exemplar.incluiSolicitacao(solic);
+		//Solicitacao solic = new Solicitacao(exemplar.getProprietario(), this, exemplar, mensagem);
+		//THIS não funciona em estáticos -- esse arquivo não é um objeto -erin
+		
+		//exemplar.incluiSolicitacao(solic);
 	}
 	
-	public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
+	public static void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
 		//confirma se vai doar ou não ao possível receptor.
 	}	
 	

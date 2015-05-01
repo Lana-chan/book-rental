@@ -12,10 +12,10 @@ public class TestaAvaliacao extends Usuario {
 		"mediano", "gostei", "gostei muito", "muito bom", "excelente"};
 	
 	
-	
 	//private Usuario critico
+	//Usuario critico = new Usuario();
+	//critico.numUsp = 5;
 	Usuario critico = new Usuario();
-	critico.numUsp = 5;
 	
 	
 	

@@ -12,7 +12,11 @@ public class Solicitacao implements Serializable {
 	private boolean confirmaEntregaReceptor;
 	private String mensagem;
 	
-	Solicitacao(Usuario doador, Usuario receptor, Exemplar exemplar, String mensagem){
+	public Solicitacao() {
+		
+	}
+	
+	public Solicitacao(Usuario doador, Usuario receptor, Exemplar exemplar, String mensagem){
 		this.setDoador(doador);
 		this.setReceptor(receptor);
 		// this aqui se refere a um tipo solicitacao, isso não está no usuario.java, pessoal

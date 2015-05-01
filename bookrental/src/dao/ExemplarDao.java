@@ -58,10 +58,10 @@ public abstract class ExemplarDao {
 			throw new IllegalArgumentException("Parâmetro livro não pode ser nulo.");
 		}
 
-		return buscaPorExemplar_(Exemplar);
+		return buscaPorLivro_(livro);
 	}
 
-	protected abstract Exemplar buscaPorExemplar_(Exemplar exemplar);
+	protected abstract Exemplar buscaPorLivro_(Livro livro);
 
 	public void remove(Exemplar exemplar) {
 		if (exemplar == null) {

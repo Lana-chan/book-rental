@@ -41,12 +41,13 @@ public abstract class UsuarioDao {
 		}
 
 		if (usuario.getNumUsp() == 0) {
-			throw new IllegalArgumentException("Não é possível atualizar um usuario sem título.");
+			throw new IllegalArgumentException("Não é possível atualizar um usuario sem NUSP.");
 		}
 
-		if (buscaPorTitulo(usuario.getTitulo()) == null) {
+		/*if (buscaPorTitulo(usuario.getTitulo()) == null) {
 			throw new IllegalArgumentException("Não existe usuario com o título: " + usuario.getTitulo() + " na base de dados.");
-		}
+		}*/
+		//não buscamos usuários por nome, e se tiver 2 usuários com mesmo nome? -erin
 
 		atualiza_(usuario);
 	}
@@ -54,60 +55,61 @@ public abstract class UsuarioDao {
 	protected abstract void atualiza_(Usuario usuario);
 
 	public Usuario buscaPorNumUSP(int numero) {
-		if (titulo == null) {
-			throw new IllegalArgumentException("Parâmetro titulo n‹o pode ser nulo.");
+		if (numero == 0) {
+			throw new IllegalArgumentException("Parâmetro NUSP não pode ser nulo.");
 		}
 
-		return buscaPorTitulo_(titulo);
+		return buscaPorNumUSP_(numero);
 	}
 
-	protected abstract usuario buscaPorTitulo_(String titulo);
+	protected abstract Usuario buscaPorNumUSP_(int numero);
 
-	public void remove(usuario usuario) {
+	public void remove(Usuario usuario) {
 		if (usuario == null) {
-			throw new IllegalArgumentException("Parâmetro usuario n‹o pode ser nulo.");
+			throw new IllegalArgumentException("Parâmetro usuario não pode ser nulo.");
 		}
 
-		if (usuario.getTitulo() == null) {
-			throw new IllegalArgumentException("Não é possível remover um usuario sem título.");
+		if (usuario.getNumUsp() == 0) {
+			throw new IllegalArgumentException("Não é possível remover um usuario sem NUSP.");
 		}
 
-		if (buscaPorTitulo(usuario.getTitulo()) == null) {
+		/*if (buscaPorTitulo(usuario.getTitulo()) == null) {
 			throw new IllegalArgumentException("Não existe usuario com o título: " + usuario.getTitulo() + " na base de dados.");
-		}
+		}*/
+		//vide acima -erin
 
 		remove_(usuario);
 	}
 
 	protected abstract void remove_(Usuario usuario);
 
-	public List<usuario> listaTodosOrdenandoPorTitulo() {
-		List<usuario> usuarios = listaTodos();
+	public List<Usuario> listaTodosOrdenandoPorNome() {
+		List<Usuario> usuarios = listaTodos();
 
-		Collections.sort(usuarios, new Comparator<usuario>() {
+		Collections.sort(usuarios, new Comparator<Usuario>() {
 
 			@Override
-			public int compare(usuario o1, usuario o2) {
-				return comparadorDeStrings.compare(o1.getTitulo(), o2.getTitulo());
+			public int compare(Usuario o1, Usuario o2) {
+				return comparadorDeStrings.compare(o1.getNome(), o2.getNome());
 			}
 		});
 
 		return usuarios;
 	}
 
-	public List<usuario> listaTodosOrdenandoPorAutor() {
+	/*public List<usuario> listaTodosOrdenandoPorAutor() {
 		List<usuario> usuarios = listaTodos();
 
-		Collections.sort(usuarios, new Comparator<usuario>() {
+		Collections.sort(usuarios, new Comparator<Usuario>() {
 
 			@Override
-			public int compare(usuario o1, usuario o2) {
+			public int compare(Usuario o1, Usuario o2) {
 				return comparadorDeStrings.compare(o1.getAutor(), o2.getAutor());
 			}
 		});
 
 		return usuarios;
-	}
+	}*/
 
-	public abstract List<usuario> listaTodos();
+	public abstract List<Usuario> listaTodos();
 }

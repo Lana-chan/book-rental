@@ -18,31 +18,36 @@ public class TestaSolicitacao {
 	//private boolean confirmaEntregaReceptor;
 	static final boolean[] confirmaEntregaReceptor= {true,true,true,true,true,false,false,false,false,false};
 	
+	//por que essas coisas são listas??? -erin
+	
 	//private String mensagem;
 	static final String[] mensagem = { "pessimo", "horrivel", "muito ruim", "ruim", "nao gostei",
 		"mediano", "gostei", "gostei muito", "muito bom", "excelente"};
 	
 	public static void main(String[] args) {
-		confirmaEntrega();
+		confirmaEntrega(true);
 	
 	}
 
-	public void confirmaEntrega (boolean resposta){
-		Usuario solicitante= this.exemplar.getProprietario();
+	public static void confirmaEntrega (boolean resposta){
+		//Usuario solicitante= this.exemplar.getProprietario();
 		
+		//THIS não funciona em classes estáticas, isso é um teste e não um objeto com instâncias -erin
+		
+		/*
 		if(solicitante==this.doador){
 			//Se o usuario que invocar o método for igual o doador, irá alterar o ConfirmaEntregaDoador
-			this.confirmaEntregaDoador=true;
+			//this.confirmaEntregaDoador=true;
 		} else if(solicitante==this.receptor){
 			//Se quem invocar for igual o receptor, altera o ConfirmaEntregaReceptor
-			this.confirmaEntregaReceptor=true;
+			//this.confirmaEntregaReceptor=true;
 		}
 		
 		if(this.confirmaEntregaDoador==this.confirmaEntregaReceptor==true){
 			//o exemplar será excluído da Lista de Exemplares do Doador e incluído na Lista de Exemplares do Receptor.
 
-			this.doador.removeExemplar(this.exemplar);
-			this.receptor.incluiExemplar(this.exemplar);
+			//this.doador.removeExemplar(this.exemplar);
+			//this.receptor.incluiExemplar(this.exemplar);
 			
 			//A Lista de Solicitações do Exmeplar é esvaziada. 
 			this.exemplar.excluiSolicitacao(this);
@@ -56,6 +61,7 @@ public class TestaSolicitacao {
 			this.exemplar.deixaDisponivel(this.exemplar);
 			
 		}
+		*/
 	}
 
 
