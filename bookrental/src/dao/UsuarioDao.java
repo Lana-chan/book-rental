@@ -21,7 +21,7 @@ public abstract class UsuarioDao {
 			throw new IllegalArgumentException("Parâmetro usuario não pode ser nulo.");
 		}
 
-		if (usuario.getNumUsp().toString() == null) {
+		if (usuario.getNumUsp() == 0) {
 			throw new IllegalArgumentException("Não é possivel adicionar um usuario sem Numero USP.");
 		}
 
@@ -40,7 +40,7 @@ public abstract class UsuarioDao {
 			throw new IllegalArgumentException("Parâmetro usuario não pode ser nulo.");
 		}
 
-		if (usuario.getNumUsp() == ) {
+		if (usuario.getNumUsp() == 0) {
 			throw new IllegalArgumentException("Não é possível atualizar um usuario sem título.");
 		}
 
@@ -53,7 +53,7 @@ public abstract class UsuarioDao {
 
 	protected abstract void atualiza_(Usuario usuario);
 
-	public usuario buscaPorTitulo(String titulo) {
+	public Usuario buscaPorNumUSP(int numero) {
 		if (titulo == null) {
 			throw new IllegalArgumentException("Parâmetro titulo n‹o pode ser nulo.");
 		}
