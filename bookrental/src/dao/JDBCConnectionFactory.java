@@ -65,14 +65,14 @@ public class JDBCConnectionFactory {
 	                   " nome							TEXT		NOT NULL," +
 	                   " unidade						INT			NOT NULL," +
 	                   " email							TEXT		NOT NULL," +
-	                   " foto							TEXT		NOT NULL," +
+	                   " foto							TEXT," +
 	                   " PRIMARY KEY (numUsp));" +	                   
  
 	      //tabela avaliacao
 	      				" CREATE TABLE Avaliacao (" +
 	      				" id							INT			AUTO_INCREMENT," + 
 	      				" nota							INT			NOT NULL," +
-	      				" comentario					TEXT		NOT NULL," +
+	      				" comentario					TEXT," +
 	      				" critico						INT			NOT NULL," +
 	      				" FOREIGN KEY (critico) 		REFERENCES	Usuario(numUsp)," +
 	      				" PRIMARY KEY (id));" +
@@ -80,30 +80,30 @@ public class JDBCConnectionFactory {
 	      	//tabela EXEMPLAR
 		  				"CREATE TABLE Exemplar (" +
 				        " id							INT			AUTO_INCREMENT," + 
-		  				" livro							BIGINT		NOT NULL, "+
-				        " disponivel					BOOLEAN		NOT NULL,"+
-		  				" proprietario					INT			NOT NULL,"+
-				        " confirmaEntregaDoador			BOOLEAN    	NOT NULL,"+ 
-				        " confirmaEntregaReceptor		BOOLEAN		NOT NULL,"+ 
-				        " foto							TEXT		NOT NULL, "+
-				        " FOREIGN KEY (proprietario)  	REFERENCES	Usuario(numUsp),"+ 
-				        " FOREIGN KEY (livro)			REFERENCES	Livro(ISBN),"+
+		  				" livro							BIGINT		NOT NULL," +
+				        " disponivel					BOOLEAN		NOT NULL," +
+		  				" proprietario					INT			NOT NULL," +
+				        " confirmaEntregaDoador			BOOLEAN    	NOT NULL," + 
+				        " confirmaEntregaReceptor		BOOLEAN		NOT NULL," + 
+				        " foto							TEXT," +
+				        " FOREIGN KEY (proprietario)  	REFERENCES	Usuario(numUsp)," + 
+				        " FOREIGN KEY (livro)			REFERENCES	Livro(ISBN)," +
 				        " PRIMARY KEY (id));" +
 	      				
 	      //tabela SOLICITAÇÃO
 	      				"CREATE TABLE Solicitacao (" +
-				        " id  							INT			AUTO_INCREMENT, " +
+				        " id  							INT			AUTO_INCREMENT," +
 	      				" exemplar						INT			NOT NULL," +
-		  				" doador						INT			NOT NULL,"+
-				        " receptor						INT			NOT NULL,"+
-				        " solicitacaoDeferida       	BOOELAN    	NOT NULL, " +
-				        " confirmaEntregaDoador         BOOLEAN    	NOT NULL, " + 
-				        " confirmaEntregaReceptor 		BOOLEAN		NOT NULL,"+ 
-				        " mensagem				      	TEXT    	NOT NULL, " +
-	      				" FOREIGN KEY (exemplar)		REFERENCES	Exemplar(id),"+
-				        " FOREIGN KEY (doador)			REFERENCES	Usuario(numUsp),"+
-				        " FOREIGN KEY (receptor)		REFERENCES	Usuario(numUsp), " +
-				        " PRIMARY KEY (id));"+
+		  				" doador						INT			NOT NULL," +
+				        " receptor						INT			NOT NULL," +
+				        " solicitacaoDeferida       	BOOELAN    	NOT NULL," +
+				        " confirmaEntregaDoador         BOOLEAN    	NOT NULL," + 
+				        " confirmaEntregaReceptor 		BOOLEAN		NOT NULL," + 
+				        " mensagem				      	TEXT," +
+	      				" FOREIGN KEY (exemplar)		REFERENCES	Exemplar(id)," +
+				        " FOREIGN KEY (doador)			REFERENCES	Usuario(numUsp)," +
+				        " FOREIGN KEY (receptor)		REFERENCES	Usuario(numUsp)," +
+				        " PRIMARY KEY (id));" +
 				        
 		  //tabela NOTIFICACAO
 		  				"CREATE TABLE Notificacao (" +
