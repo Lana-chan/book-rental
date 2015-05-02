@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import entidades.Usuario;
+import entidades.Unidade;
 
 public class UsuarioDaoJDBC extends UsuarioDao {
 
@@ -47,7 +48,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 			stmt.setInt(1, usuario.getNumUsp());
 			stmt.setString(2, usuario.getNome());
 			//stmt.setInt(3, usuario.getUnidade());
-			//transforme Unidade para integer antes -erin
+			stmt.setInt(3, usuario.getUnidade().getValue());
 			stmt.setString(4, usuario.getEmail());
 			//stmt.setString(5, usuario.getFoto());
 			//stmt.setList(6, usuario.getColecao()); //lista exemplar
@@ -64,7 +65,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 	}
 
 	@Override
-	public Usuario buscaPorNumUSP_(int numUsp) {
+	public Usuario buscaPorNumUsp_(int numUsp) {
 		Connection connection = new JDBCConnectionFactory().getConnection();
 		PreparedStatement stmt;
 		Usuario usuario = null;
@@ -77,8 +78,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario = new Usuario();
 				usuario.setNumUsp(numUsp);
 				usuario.setNome(rs.getString("nome"));
-				//usuario.setUnidade(rs.getEnum("unidade"));
-				//getEnum não existe -erin
+				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				//usuario.setFoto(rs.getString("foto"));
 				//usuario.setReputacao(rs.getString("idioma"));
@@ -126,8 +126,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario = new Usuario();
 				usuario.setNumUsp(rs.getInt("numUsp"));
 				usuario.setNome(rs.getString("nome"));
-				//usuario.setUnidade(rs.getEnum("unidade"));
-				//getEnum não existe -erin
+				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				//usuario.setFoto(rs.getString("foto"));
 				//usuario.setReputacao(rs.getString("idioma"));

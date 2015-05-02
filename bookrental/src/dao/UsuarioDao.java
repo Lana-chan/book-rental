@@ -22,11 +22,11 @@ public abstract class UsuarioDao {
 		}
 
 		if (usuario.getNumUsp() == 0) {
-			throw new IllegalArgumentException("Não é possivel adicionar um usuario sem Numero USP.");
+			throw new IllegalArgumentException("Não é possivel adicionar um usuario sem NUSP.");
 		}
 
-		if (buscaPorNumUSP(usuario.getNumUsp()) != null) {
-			throw new IllegalArgumentException("Já existe um usuario com o título: " + usuario.getNumUsp()
+		if (buscaPorNumUsp(usuario.getNumUsp()) != null) {
+			throw new IllegalArgumentException("Já existe um usuario com o NUSP " + usuario.getNumUsp()
 					+ " na base de dados.");
 		}
 
@@ -44,25 +44,24 @@ public abstract class UsuarioDao {
 			throw new IllegalArgumentException("Não é possível atualizar um usuario sem NUSP.");
 		}
 
-		/*if (buscaPorTitulo(usuario.getTitulo()) == null) {
-			throw new IllegalArgumentException("Não existe usuario com o título: " + usuario.getTitulo() + " na base de dados.");
-		}*/
-		//não buscamos usuários por nome, e se tiver 2 usuários com mesmo nome? -erin
+		if (buscaPorNumUsp(usuario.getNumUsp()) == null) {
+			throw new IllegalArgumentException("Não existe usuario com o NUSP " + usuario.getNumUsp() + " na base de dados.");
+		}
 
 		atualiza_(usuario);
 	}
 
 	protected abstract void atualiza_(Usuario usuario);
 
-	public Usuario buscaPorNumUSP(int numero) {
+	public Usuario buscaPorNumUsp(int numero) {
 		if (numero == 0) {
 			throw new IllegalArgumentException("Parâmetro NUSP não pode ser nulo.");
 		}
 
-		return buscaPorNumUSP_(numero);
+		return buscaPorNumUsp_(numero);
 	}
 
-	protected abstract Usuario buscaPorNumUSP_(int numero);
+	protected abstract Usuario buscaPorNumUsp_(int numero);
 
 	public void remove(Usuario usuario) {
 		if (usuario == null) {
@@ -73,10 +72,9 @@ public abstract class UsuarioDao {
 			throw new IllegalArgumentException("Não é possível remover um usuario sem NUSP.");
 		}
 
-		/*if (buscaPorTitulo(usuario.getTitulo()) == null) {
-			throw new IllegalArgumentException("Não existe usuario com o título: " + usuario.getTitulo() + " na base de dados.");
-		}*/
-		//vide acima -erin
+		if (buscaPorNumUsp(usuario.getNumUsp()) == null) {
+			throw new IllegalArgumentException("Não existe usuario com o NUSP " + usuario.getNumUsp() + " na base de dados.");
+		}
 
 		remove_(usuario);
 	}
@@ -97,19 +95,19 @@ public abstract class UsuarioDao {
 		return usuarios;
 	}
 
-	/*public List<usuario> listaTodosOrdenandoPorAutor() {
-		List<usuario> usuarios = listaTodos();
+	public List<Usuario> listaTodosOrdenandoPorNumUsp() {
+		List<Usuario> usuarios = listaTodos();
 
 		Collections.sort(usuarios, new Comparator<Usuario>() {
 
 			@Override
 			public int compare(Usuario o1, Usuario o2) {
-				return comparadorDeStrings.compare(o1.getAutor(), o2.getAutor());
+				return o2.getNumUsp() - o1.getNumUsp();
 			}
 		});
 
 		return usuarios;
-	}*/
+	}
 
 	public abstract List<Usuario> listaTodos();
 }

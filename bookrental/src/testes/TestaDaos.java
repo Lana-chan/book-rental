@@ -102,8 +102,8 @@ public class TestaDaos {
 		System.out.println("------------------------- Livros ordenados por autor ------------------------------");
 		System.out.println("-----------------------------------------------------------------------------------");
 		for (Livro livro : livroDao.listaTodosOrdenandoPorTitulo()){ 
-			System.out.println("-"+livro.getTitulo());
-			System.out.println("\n");
+			System.out.println(livro);
+			//System.out.println("\n");
 		}
 		System.out.println("-----------------------------------------------------------------------------------");
 		System.out.println("------------------------- Livros ordenados por título -----------------------------");
