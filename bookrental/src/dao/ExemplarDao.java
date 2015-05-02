@@ -6,7 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import entidades.Exemplar;
-import entidades.Livro;
+import entidades.Solicitacao;
+import entidades.Usuario;
 
 public abstract class ExemplarDao {
 
@@ -17,24 +18,17 @@ public abstract class ExemplarDao {
 		comparadorDeStrings.setStrength(Collator.NO_DECOMPOSITION);
 	}
 
+	//adiciona exemplares ao Usuario
 	public void adiciona(Exemplar exemplar) {
 		if (exemplar == null) {
 			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
 		}
 
-		if (exemplar.getProprietario() == null) {
-			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem proprietario.");
-		}
-		
-		if (exemplar.getLivro() == null) {
-			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem ser referenciado a um livro existente.");
-		}
-
 		adiciona_(exemplar);
 	}
-
 	protected abstract void adiciona_(Exemplar exemplar);
-
+	
+	//Atualiza o proprietario do Exemplar
 	public void atualiza(Exemplar exemplar) {
 		if (exemplar == null) {
 			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
@@ -44,45 +38,63 @@ public abstract class ExemplarDao {
 			throw new IllegalArgumentException("Não é possível adicionar um exemplar sem proprietario.");
 		}
 
-		if (buscaPorLivro(exemplar.getLivro()) == null) {
-			throw new IllegalArgumentException("Não existe exemplar com o livro \"" + exemplar.getLivro().getTitulo() + "\" na base de dados.");
+		if (buscaPorTitulo(exemplar) == null) {
+			throw new IllegalArgumentException("Não existe o livro \"" + exemplar.getLivro().getTitulo() + "\" cadastrado na base de dados.");
 		}
 
-		atualiza_(exemplar);
+		atualizaProprietario_(exemplar);
 	}
+	protected abstract void atualizaProprietario_(Exemplar exemplar);
+	
+	//Atualiza o status (disponivel ou nao) do exemplar
+	public void modificaDisponibilidade(Exemplar exemplar, Boolean disponivel) {
+		if (exemplar== null||disponivel== null ) {
+			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
+		}
 
-	protected abstract void atualiza_(Exemplar exemplar);
+		if (exemplar.getDisponivel() == disponivel) {
+			throw new IllegalArgumentException("Não há nada a ser alterado.");
+		}
 
-	public Exemplar buscaPorLivro(Livro livro) {
-		if (livro == null) {
+		if (buscaPorTitulo(exemplar) == null) {
+			throw new IllegalArgumentException("Não existe o livro \"" + exemplar.getLivro().getTitulo() + "\" cadastrado na base de dados.");
+		}
+
+		atualizaDisponibilidade_(exemplar, disponivel);
+	}
+	protected abstract void atualizaDisponibilidade_(Exemplar exemplar, Boolean disponivel);
+
+	//Busca por titulo
+	public Exemplar buscaPorTitulo(Exemplar exemplar) {
+		if (exemplar == null) {
 			throw new IllegalArgumentException("Parâmetro livro não pode ser nulo.");
 		}
 
-		return buscaPorLivro_(livro);
+		return buscaPorTitulo_(exemplar.getLivro().getTitulo());
 	}
+	protected abstract Exemplar buscaPorTitulo_(String titulo);
 
-	protected abstract Exemplar buscaPorLivro_(Livro livro);
-
+	//Remove exemplar
 	public void remove(Exemplar exemplar) {
 		if (exemplar == null) {
-			throw new IllegalArgumentException("Parâmetro exemplar não pode ser null.");
+			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
 		}
 
 		if (exemplar.getLivro() == null) {
-			throw new IllegalArgumentException("Não é possível remover um exemplar sem livro.");
+			throw new IllegalArgumentException("Não é possível remover um exemplar não cadastrado.");
 		}
 
-		if (buscaPorLivro(exemplar.getLivro()) == null) {
+		if (buscaPorTitulo(exemplar) == null) {
 			throw new IllegalArgumentException("Não existe exemplar com o livro \"" + exemplar.getLivro().getTitulo() + "\" na base de dados.");
 		}
 
 		remove_(exemplar);
 	}
-
 	protected abstract void remove_(Exemplar exemplar);
 
-	public List<Exemplar> listaTodosOrdenandoPorTitulo() {
-		List<Exemplar> exemplares = listaTodos();
+	//Lista colecao do usuario por titulo
+	public List<Exemplar> listaTodosOrdenandoPorTitulo(Usuario usuario) {
+		List<Exemplar> exemplares = listaTodos(usuario);
 
 		Collections.sort(exemplares, new Comparator<Exemplar>() {
 
@@ -91,23 +103,25 @@ public abstract class ExemplarDao {
 				return comparadorDeStrings.compare(o1.getLivro().getTitulo(), o2.getLivro().getTitulo());
 			}
 		});
-
 		return exemplares;
 	}
+	//lista todos os livros
+	public abstract List<Exemplar> listaTodos(Usuario usuario);
+	
+	
+	//lista solicitacoes
+	public List<Solicitacao> buscaSolicitacoes(Exemplar exemplar) {
+		List<Solicitacao> solicitacoes = buscaSolicitacoes_(exemplar);
 
-	public List<Exemplar> listaTodosOrdenandoPorAutor() {
-		List<Exemplar> exemplares = listaTodos();
-
-		Collections.sort(exemplares, new Comparator<Exemplar>() {
+		Collections.sort(solicitacoes, new Comparator<Solicitacao>() {
 
 			@Override
-			public int compare(Exemplar o1, Exemplar o2) {
-				return comparadorDeStrings.compare(o1.getLivro().getAutor(), o2.getLivro().getAutor());
+			public int compare(Solicitacao o1, Solicitacao o2) {
+				return comparadorDeStrings.compare(o1.getExemplar().getLivro().getAutor(), o2.getExemplar().getLivro().getAutor());
 			}
 		});
 
-		return exemplares;
+		return solicitacoes;
 	}
-
-	public abstract List<Exemplar> listaTodos();
+	public abstract List<Solicitacao> buscaSolicitacoes_(Exemplar exemplar);
 }

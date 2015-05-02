@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Exemplar;
-import entidades.Livro;
+import entidades.Solicitacao;
+import entidades.Usuario;
 
 public class ExemplarDaoJDBC extends ExemplarDao {
 
@@ -17,15 +18,13 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 	@Override
 	public void adiciona_(Exemplar exemplar) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "insert into exemplar (livro, disponivel, proprietario, historicoProprietario, solicitacoes, foto) values (?,?,?,?,?,?)";
+		String sql = "insert into exemplar (proprietario) values (?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setObject(1, exemplar.getLivro());
+			stmt.setLong(1, exemplar.getLivro().getISBN());
 			stmt.setBoolean(2, exemplar.getDisponivel());
-			stmt.setObject(3, exemplar.getProprietario());
-			stmt.setObject(4, exemplar.getHistoricoProprietario());
-			stmt.setObject(5, exemplar.getSolicitacoes());
-			stmt.setString(6, exemplar.getFoto());
+			stmt.setObject(3, exemplar.getProprietario().getNumUsp());
+			stmt.setString(4, exemplar.getFoto());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -36,18 +35,29 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 	}
 
 	@Override
-	public void atualiza_(Exemplar exemplar) {
+	public void atualizaProprietario_(Exemplar exemplar) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "update livros set livro=?, disponivel=?, proprietario=?, historicoProprietario=?, solicitacoes=?, foto=?";
+		String sql = "update livros set proprietario=? where ISBN=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setObject(1, exemplar.getLivro());
-			stmt.setBoolean(2,exemplar.getDisponivel());
-			stmt.setObject(3, exemplar.getProprietario());
-			stmt.setObject(4, exemplar.getHistoricoProprietario());
-			stmt.setObject(5, exemplar.getSolicitacoes());
-			stmt.setString(6, exemplar.getFoto());
+			stmt.setObject(1, exemplar.getProprietario().getNumUsp());
+			stmt.setObject(2, exemplar.getLivro().getISBN());
 			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connectionFactory.close(connection);
+		}
+	}
+	
+	public void atualizaDisponibilidade_(Exemplar exemplar, Boolean disponivel) {
+		Connection connection = connectionFactory.getConnection();
+		String sql = "update livros set disponivel=? where ISBN=?";
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setObject(1, disponivel);
+			stmt.setObject(2, exemplar.getLivro().getISBN());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -57,32 +67,25 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 		}
 	}
 
-	//erro de conceito: você está buscando um exemplar e carregando um livro na memória??
-	//e você não está implementando buscaPorLivro_(Livro)
-	//TODO: consertar -erin
-	/*@Override
-	public Exemplar buscaPorExemplar_(Exemplar exemplar) {
+	//busca por Titulo
+	@Override
+	public Exemplar buscaPorTitulo_(String titulo) {
 		Connection connection = new JDBCConnectionFactory().getConnection();
 		PreparedStatement stmt;
-		Livro livro = null;
+		Exemplar livro = null;
 		try {
-			stmt = connection.prepareStatement("select * from Exemplar where titulo=?");
-			stmt.setString(1, exemplar);
+			stmt = connection.prepareStatement("select (livro, disponivel, proprietario, foto) from Exemplar where titulo=? and disponivel=?");
+			stmt.setString(1, titulo);
+			stmt.setBoolean(2, true);
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				livro = new Livro();
-				livro.setISBN(rs.getLong("ISBN"));
-				livro.setTitulo(titulo);
-				livro.setAutor(rs.getString("autor"));
-				livro.setEditora(rs.getString("editora"));
-				livro.setAno(rs.getInt("ano"));
-				livro.setEdicao(rs.getInt("edicao"));
-				livro.setSinopse(rs.getString("sinopse"));
-				livro.setNumPaginas(rs.getInt("numPaginas"));
-				livro.setIdioma(rs.getString("idioma"));
+				livro = new Exemplar();
+				livro.getLivro().setISBN(rs.getInt("livro"));
+				livro.setDisponivel(true);
+				livro.getProprietario().setNumUsp(rs.getInt("proprietario"));
+				livro.setFoto(rs.getString("foto"));
 			}
-
 			rs.close();
 			stmt.close();
 		} catch (SQLException e) {
@@ -90,27 +93,85 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 		} finally {
 			connectionFactory.close(connection);
 		}
-
-		//return livro;
 		Exemplar dummy = new Exemplar();
 		return dummy;
-	}*/
-	
-	@Override
-	public Exemplar buscaPorLivro_(Livro livro) {
-		Exemplar encontrado = new Exemplar();
-		//TODO: buscar exemplar que tenha campo livro igual a id do livro dado
-		return encontrado;
 	}
+		
+	
+	//mostra lista de solicitacoes do exemplar
+	@Override
+	public List<Solicitacao> buscaSolicitacoes_(Exemplar exemplar){
+		Connection connection = new JDBCConnectionFactory().getConnection();
+		PreparedStatement stmt;
+		List<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
+		
+		try {
+			stmt = connection.prepareStatement("SELECT (doador, receptor, mensagem) FROM Solicitacoes WHERE exemplar="+
+									"(SELECT id FROM exemplar WHERE livro=?, proprietario=?, foto=?)");
+			stmt.setLong(1, exemplar.getLivro().getISBN());
+			stmt.setInt(2, exemplar.getProprietario().getNumUsp());
+			stmt.setString(3, exemplar.getFoto());
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				Solicitacao solicitacao = new Solicitacao();
+				solicitacao.getDoador().setNumUsp(rs.getInt("doador"));;
+				solicitacao.getReceptor().setNumUsp(rs.getInt("receptor"));
+				solicitacao.setMensagem(rs.getString("mensagem"));
+				
+				solicitacoes.add(solicitacao);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connectionFactory.close(connection);
+		}
+			return solicitacoes;
+	}
+
+
+	@Override
+	public List<Exemplar> listaTodos(Usuario usuario) {
+		Connection connection = new JDBCConnectionFactory().getConnection();
+		PreparedStatement stmt;
+		List<Exemplar> exemplares = new ArrayList<Exemplar>();
+
+		try {
+			stmt = connection.prepareStatement("select (livro, disponivel, proprietario, foto) from Exemplar where proprietario=?");
+			stmt.setInt(1, usuario.getNumUsp());
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				Exemplar exemplar = new Exemplar();
+				exemplar.getLivro().setISBN(rs.getLong("livro"));;
+				exemplar.setDisponivel(rs.getBoolean("disponivel"));
+				exemplar.getProprietario().setNumUsp(rs.getInt("proprietario"));
+				exemplar.setFoto(rs.getString("foto"));
+				exemplares.add(exemplar);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connectionFactory.close(connection);
+		}
+		return exemplares;
+	}
+	
+	
+
 
 	@Override
 	public void remove_(Exemplar exemplar) {
 		Connection connection = new JDBCConnectionFactory().getConnection();
 		PreparedStatement stmt;
+
 		try {
-			stmt = connection.prepareStatement("delete from exemplares where titulo=?");
-			//stmt.setString(1, livro.getTitulo());
-			//TODO: isso não remove livro, isso remove exemplares. exemplares não têm títulos
+			stmt = connection.prepareStatement("delete from exemplares where ISBN=?");
+			stmt.setLong(1, exemplar.getLivro().getISBN());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -119,42 +180,5 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 			connectionFactory.close(connection);
 		}
 	}
-
-	@Override
-	public List<Exemplar> listaTodos() {
-		Connection connection = new JDBCConnectionFactory().getConnection();
-		PreparedStatement stmt;
-		//LinkedList<Livro> livros = new LinkedList<Livro>();
-		List<Exemplar> exemplares = new ArrayList<Exemplar>();
-
-		try {
-			stmt = connection.prepareStatement("select * from exemplares");
-			ResultSet rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				Exemplar exemplar = new Exemplar();
-				/*exemplar.setISBN(rs.getLong("ISBN"));
-				exemplar.setTitulo(rs.getString("titulo"));
-				exemplar.setAutor(rs.getString("autor"));
-				exemplar.setEditora(rs.getString("editora"));
-				exemplar.setAno(rs.getInt("ano"));
-				exemplar.setEdicao(rs.getInt("edicao"));
-				exemplar.setSinopse(rs.getString("sinopse"));
-				exemplar.setNumPaginas(rs.getInt("numPaginas"));
-				exemplar.setIdioma(rs.getString("idioma"));*/
-				//exemplar não tem nada disso -erin
-				
-				exemplares.add(exemplar);
-			}
-
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			connectionFactory.close(connection);
-		}
-
-		return exemplares;
-	}
+	
 }
