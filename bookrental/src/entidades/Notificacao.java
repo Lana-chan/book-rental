@@ -1,8 +1,7 @@
 package entidades;
-import java.io.Serializable;
 import java.sql.Date;
 
-public class Notificacao implements Serializable {
+public class Notificacao {
 	
 	private static final long serialVersionUID = 1L;
 	private Usuario remetente;

@@ -1,8 +1,7 @@
 package entidades;
-import java.io.Serializable;
 import java.util.*;
 
-public class Exemplar implements Serializable  {
+public class Exemplar {
 	
 	private static final long serialVersionUID = 1L;
 	private Livro livro;
@@ -31,57 +30,38 @@ public class Exemplar implements Serializable  {
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
 	
-	public Livro getLivro() {
-		return this.livro;
-	}
+	public Livro getLivro() {return this.livro;}
+	public void setLivro(Livro livro) {this.livro = livro;}
 
-	public void setLivro(Livro livro) {
-		this.livro = livro;
-	}
-
-	public boolean getDisponivel() {
-		return this.disponivel;
-	}
+	public boolean getDisponivel() {return this.disponivel;}
+	public void setDisponivel(boolean disponivel) {this.disponivel = disponivel;}
 	
-	public void setDisponivel(boolean disponivel) {
-		this.disponivel = disponivel;
-	}
+	public Usuario getProprietario() {return this.proprietario;}
+	public void setProprietario(Usuario novoProprietario) {this.proprietario = novoProprietario;}
 	
-	public Usuario getProprietario() {
-		return this.proprietario;
-	}
-
-	public void setProprietario(Usuario novoProprietario) {
-		this.proprietario = novoProprietario;
-	}
+	public List<Usuario> getHistoricoProprietario() {return this.historicoProprietario;}
 	
-	public List<Usuario> getHistoricoProprietario() { //é uma lista
-		return this.historicoProprietario;
-	}
+	public List<Solicitacao> getSolicitacoes() {return this.solicitacoes;}
 	
-	public void setHistoricoProprietario(Usuario novoProprietario){
-		this.historicoProprietario.add(novoProprietario);
-	}
-	
-	public List<Solicitacao> getSolicitacoes() { //é uma lista
-		return this.solicitacoes;
-	}
-	
-	public String getFoto() {
-		return this.foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
+	public String getFoto() {return this.foto;}
+	public void setFoto(String foto) {this.foto = foto;}
 	
 	/*-------------------------------------------------------------------------------
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
 	public void modificaProprietario(Usuario novoProprietario){
-		//exemplar muda de proprietario, atualiza o historico
-		setProprietario(novoProprietario);
-		setHistoricoProprietario(novoProprietario);
+		//Atualiza o historico
+		this.historicoProprietario.add(novoProprietario);
+		
+		//Remove o exemplar da lista do doador.
+		//Nesse momento o exemplar já está na lista do receptor
+		this.proprietario.removeExemplar(this);
+		
+		//Modifica o proprietario
+		this.proprietario = novoProprietario;
+		
+		//Limpa todas as solicitações que ficaram pendentes
+		this.solicitacoes.clear();		
 	}
 	
 	public void incluiSolicitacao (Solicitacao solicitacao) {

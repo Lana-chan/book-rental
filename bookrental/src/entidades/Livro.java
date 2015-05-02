@@ -1,10 +1,9 @@
 package entidades;
 
-import java.io.Serializable;
 
 import util.StringUtils;
 
-public class Livro implements Serializable {
+public class Livro {
 
 	private static final long serialVersionUID = 1L;
 

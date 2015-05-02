@@ -1,2 +1,6 @@
 Onde criar a classe criaAvaliacao?
 -Na Solicitacao??
+
+Onde colocar o atributo senha?
+Onde o usuario sera criado?
+Onde será feita a avaliação?

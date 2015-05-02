@@ -29,36 +29,17 @@ public class Usuario  {
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
 	
-	public int getNumUsp() {
-		return this.numUSP;
-	}
-
-	public void setNumUsp(int numUsp) {
-		this.numUSP = numUsp;
-	}
+	public int getNumUsp() {return this.numUSP;}
+	public void setNumUsp(int numUsp) {	this.numUSP = numUsp;}
 	
-	public String getNome() {
-		return this.nome;
-	}
+	public String getNome() {return this.nome;}
+	public void setNome(String nome) {this.nome = nome;}
 	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	public Unidade getUnidade() {return this.unidade;}
+	public void setUnidade(Unidade unidade) {this.unidade = unidade ;}
 	
-	public Unidade getUnidade() {
-		return this.unidade;
-	}
-
-	public void setUnidade(Unidade unidade) {
-		this.unidade = unidade ;
-	}
-	
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public String getEmail() {return this.email;}
+	public void setEmail(String email) {this.email = email;
 	}
 	
 	public List<Exemplar> getColecao() { //é uma lista

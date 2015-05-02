@@ -1,7 +1,6 @@
 package entidades;
-import java.io.Serializable;
 
-public class Solicitacao implements Serializable {
+public class Solicitacao {
 	
 	private static final long serialVersionUID = 1L;
 	private Usuario doador;
@@ -37,12 +36,18 @@ public class Solicitacao implements Serializable {
 	
 	public String getMensagem() { return this.mensagem; }
 	public void setMensagem(String mensagem){ this.mensagem = mensagem;}
+	
+	public boolean getConfirmaEntregaDoador() { return.ConfirmaEntregaDoador;}
+	public void setConfirmaEntregaDoador(boolean resp){ this.confirmaEntregaDoador = resp;}
+	
+	public boolean getConfirmaEntregaReceptor() { return.ConfirmaEntregaReceptor;}
+	public void setConfirmaEntregaReceptor(boolean resp){ this.confirmaEntregaReceptor = resp;}
 
 	/*-------------------------------------------------------------------------------
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
 	
-	public void confirmaEntrega (boolean resposta){
+	public void confirmaEntrega (){
 		Usuario solicitante= this.exemplar.getProprietario();
 		
 		if(solicitante==this.doador){
@@ -53,23 +58,14 @@ public class Solicitacao implements Serializable {
 			this.confirmaEntregaReceptor=true;
 		}
 		
-		if(this.confirmaEntregaDoador==this.confirmaEntregaReceptor==true){
-			//o exemplar será excluído da Lista de Exemplares do Doador e incluído na Lista de Exemplares do Receptor.
-
-			this.doador.removeExemplar(this.exemplar);
-			this.receptor.incluiExemplar(this.exemplar);
-			
-			//A Lista de Solicitações do Exmeplar é esvaziada. 
-			this.exemplar.excluiSolicitacao(this);
-			
-			//Altera-se o nome do proprietario
-			this.exemplar.modificaProprietario(this.receptor);
-		
-		} else {
-			this.exemplar.setDisponivel(true);
-		}
-		
-		//Exclui a solicitação
+		//se ambos usuarios já tiverem confirmado a entrega, a transação é concluída.
+		if(this.confirmaEntregaReceptor == this.confirmaEntregaDoador == true)
+			this.exemplar.modificaProprietario(this.receptor); 
+	
+	}
+	
+	public void cancelaTransacao (){
+		this.exemplar.setDisponivel(true);
 		this.exemplar.excluiSolicitacao(this);
 	}
 	

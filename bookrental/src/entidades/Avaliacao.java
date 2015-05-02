@@ -1,5 +1,4 @@
 package entidades;
-import java.io.Serializable;
 
 public class Avaliacao {
 	
