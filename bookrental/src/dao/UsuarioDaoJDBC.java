@@ -78,8 +78,8 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
 				List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
 				usuario.setColecao(colecao);
-				ExemplarDao solicitacaoDao = new SolicitacaoDaoFactory().getInstance();
-				List<Avaliacao> reputacao = solicitacaoDao.buscaPorUsuario(usuario);
+				ExemplarDao avaliacaoDao = new AvaliacaoDaoFactory().getInstance();
+				List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
 				usuario.setReputacao(colecao);
 			}
 
@@ -121,7 +121,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 			ResultSet rs = stmt.executeQuery();
 
 			ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
-			ExemplarDao solicitacaoDao = new SolicitacaoDaoFactory().getInstance();
+			ExemplarDao AvaliacaoDao = new AvaliacaoDaoFactory().getInstance();
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario = new Usuario();
@@ -133,7 +133,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 
 				List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
 				usuario.setColecao(colecao);
-				List<Avaliacao> reputacao = solicitacaoDao.buscaPorUsuario(usuario);
+				List<Avaliacao> reputacao = avaliiacaoDao.buscaPorUsuario(usuario);
 				usuario.setReputacao(colecao);
 				
 				usuarios.add(usuario);
