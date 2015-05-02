@@ -88,21 +88,28 @@ public class Usuario  {
 		//O Exemplar é adicionado a lista do solicitante e fica pendente
 		this.colecao.add(exemplar);
 		
-		Notificacao notifica=new Notificacao(this, exemplar.getProprietario(), 
-				this.nome+ " solicita seu exemplar de "+ exemplar.getLivro().getTitulo(), this.date);
+		/*Notificacao notifica=new Notificacao(this, exemplar.getProprietario(), 
+				this.nome+ " solicita seu exemplar de "+ exemplar.getLivro().getTitulo(), this.date);*/
 	}
 	
 	public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
 		//confirma se vai doar ou não ao possível receptor.
-		if (resposta==true){
-			Notificacao notifica=new Notificacao(this, solicitacao.getDoador(), 
-					this.nome+ " aceita doar "+ solicitacao.getExemplar().getLivro().getTitulo(), this.date);
-			solicitacao.confirmaEntrega(true);
+		if (resposta==true){			
+
+			//Se aprovado, o exemplar nao será mais visivel na busca 
+			solicitacao.getExemplar().setDisponivel(false);
+			solicitacao.setSolicitacaoDeferida(true);			
 			
+			/*Notificacao notifica=new Notificacao(this, solicitacao.getDoador(), 
+			this.nome+ " aceita doar "+ solicitacao.getExemplar().getLivro().getTitulo(), this.date);*/
+					
 		} else {
-			Notificacao notifica=new Notificacao(this, solicitacao.getDoador(), 
-					this.nome+ " não aceita doar "+ solicitacao.getExemplar().getLivro().getTitulo(), this.date);
-			solicitacao.confirmaEntrega(true);
+			//Se for negado, o exemplar é removido da lista do solicitante e a solicitação é excluida do exemplar
+			solicitacao.getReceptor().removeExemplar(solicitacao.getExemplar());
+			solicitacao.getExemplar().excluiSolicitacao(solicitacao);
+			
+			/*Notificacao notifica=new Notificacao(this, solicitacao.getDoador(), 
+			this.nome+ " não aceita doar "+ solicitacao.getExemplar().getLivro().getTitulo(), this.date);*/
 			
 		}
 	}	
