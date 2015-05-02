@@ -39,14 +39,14 @@ public class Usuario  {
 	public void setUnidade(Unidade unidade) {this.unidade = unidade ;}
 	
 	public String getEmail() {return this.email;}
-	public void setEmail(String email) {this.email = email;
-	}
+	public void setEmail(String email) {this.email = email;}
 	
-	public List<Exemplar> getColecao() { //é uma lista
-		return colecao;
-	}
+	public List<Exemplar> getColecao() {return colecao;}
 	
-
+	public String getFoto (){return this.foto;}
+	public void setFoto (String foto){this.foto = foto;}
+	
+	
 	/*-------------------------------------------------------------------------------
 	 * Métodos
 	 *------------------------------------------------------------------------------*/
@@ -84,6 +84,9 @@ public class Usuario  {
 	public void criaSolicitacao(Exemplar exemplar, String mensagem){
 		Solicitacao solic = new Solicitacao(exemplar.getProprietario(), this, exemplar, mensagem);
 		exemplar.incluiSolicitacao(solic);
+		
+		//O Exemplar é adicionado a lista do solicitante e fica pendente
+		this.colecao.add(exemplar);
 		
 		Notificacao notifica=new Notificacao(this, exemplar.getProprietario(), 
 				this.nome+ " solicita seu exemplar de "+ exemplar.getLivro().getTitulo(), this.date);

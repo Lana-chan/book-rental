@@ -37,10 +37,10 @@ public class Solicitacao {
 	public String getMensagem() { return this.mensagem; }
 	public void setMensagem(String mensagem){ this.mensagem = mensagem;}
 	
-	public boolean getConfirmaEntregaDoador() { return.ConfirmaEntregaDoador;}
+	public boolean getConfirmaEntregaDoador() { return ConfirmaEntregaDoador;}
 	public void setConfirmaEntregaDoador(boolean resp){ this.confirmaEntregaDoador = resp;}
 	
-	public boolean getConfirmaEntregaReceptor() { return.ConfirmaEntregaReceptor;}
+	public boolean getConfirmaEntregaReceptor() { return ConfirmaEntregaReceptor;}
 	public void setConfirmaEntregaReceptor(boolean resp){ this.confirmaEntregaReceptor = resp;}
 
 	/*-------------------------------------------------------------------------------
