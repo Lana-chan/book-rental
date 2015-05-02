@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import entidades.Usuario;
 import entidades.Unidade;
+import entidades.Exemplar;
+import entidades.Avaliacao;
 
 public class UsuarioDaoJDBC extends UsuarioDao {
 
@@ -16,20 +18,15 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 	@Override
 	public void adiciona_(Usuario usuario) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "INSERT INTO usuarios (numUsp, nome, unidade, email, foto, colecao, reputacao) values (?,?,?,?,?,?)";
+		String sql = "INSERT INTO usuarios (numUsp, nome, unidade, email, foto) values (?,?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, usuario.getNumUsp());
 			stmt.setString(2, usuario.getNome());
-			//stmt.setInt(3, usuario.getUnidade());
-			//transforme Unidade para integer antes -erin
+			stmt.setInt(3, usuario.getUnidade().getValue());
 			stmt.setString(4, usuario.getEmail());
-			//stmt.setInt(5, usuario.getFoto());
-			//não estamos fazendo foto, certo? -erin
-			//stmt.setList(6, usuario.getColecao()); //lista exemplar
-			//stmt.setList(7, usuario.getReputacao()); //lista avaliacao
-			//setlist não existe -- pesquisar como guardar ArrayList<Object>() em SQL com JDBC -erin
-			//método Usuario.getReputacao() não existe, criar? -erin
+			stmt.setString(5, usuario.getFoto());
+
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -42,19 +39,15 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 	@Override
 	public void atualiza_(Usuario usuario) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "UPDATE usuarios numUsp=?, nome=?, unidade=?, email=?, foto=?, colecao=?, reputacao=?";
+		String sql = "UPDATE usuarios numUsp=?, nome=?, unidade=?, email=?, foto=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, usuario.getNumUsp());
 			stmt.setString(2, usuario.getNome());
-			//stmt.setInt(3, usuario.getUnidade());
 			stmt.setInt(3, usuario.getUnidade().getValue());
 			stmt.setString(4, usuario.getEmail());
-			//stmt.setString(5, usuario.getFoto());
-			//stmt.setList(6, usuario.getColecao()); //lista exemplar
-			//stmt.setList(7, usuario.getReputacao()); //lista avaliacao
-			//setlist não existe -- pesquisar como guardar ArrayList<Object>() em SQL com JDBC -erin
-			//método Usuario.getReputacao() não existe, criar? -erin
+			stmt.setString(5, usuario.getFoto());
+
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -80,8 +73,14 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setNome(rs.getString("nome"));
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
-				//usuario.setFoto(rs.getString("foto"));
-				//usuario.setReputacao(rs.getString("idioma"));
+				usuario.setFoto(rs.getString("foto"));
+				
+				ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
+				List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
+				usuario.setColecao(colecao);
+				ExemplarDao solicitacaoDao = new SolicitacaoDaoFactory().getInstance();
+				List<Avaliacao> reputacao = solicitacaoDao.buscaPorUsuario(usuario);
+				usuario.setReputacao(colecao);
 			}
 
 			rs.close();
@@ -121,6 +120,8 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 			stmt = connection.prepareStatement("SELECT * FROM usuario");
 			ResultSet rs = stmt.executeQuery();
 
+			ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
+			ExemplarDao solicitacaoDao = new SolicitacaoDaoFactory().getInstance();
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario = new Usuario();
@@ -128,8 +129,12 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setNome(rs.getString("nome"));
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
-				//usuario.setFoto(rs.getString("foto"));
-				//usuario.setReputacao(rs.getString("idioma"));
+				usuario.setFoto(rs.getString("foto"));
+
+				List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
+				usuario.setColecao(colecao);
+				List<Avaliacao> reputacao = solicitacaoDao.buscaPorUsuario(usuario);
+				usuario.setReputacao(colecao);
 				
 				usuarios.add(usuario);
 			}
