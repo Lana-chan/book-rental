@@ -98,40 +98,6 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 	}
 		
 	
-	//mostra lista de solicitacoes do exemplar
-	@Override
-	public List<Solicitacao> buscaSolicitacoes_(Exemplar exemplar){
-		Connection connection = new JDBCConnectionFactory().getConnection();
-		PreparedStatement stmt;
-		List<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
-		
-		try {
-			stmt = connection.prepareStatement("SELECT (doador, receptor, mensagem) FROM Solicitacoes WHERE exemplar="+
-									"(SELECT id FROM exemplar WHERE livro=?, proprietario=?, foto=?)");
-			stmt.setLong(1, exemplar.getLivro().getISBN());
-			stmt.setInt(2, exemplar.getProprietario().getNumUsp());
-			stmt.setString(3, exemplar.getFoto());
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				Solicitacao solicitacao = new Solicitacao();
-				solicitacao.getDoador().setNumUsp(rs.getInt("doador"));;
-				solicitacao.getReceptor().setNumUsp(rs.getInt("receptor"));
-				solicitacao.setMensagem(rs.getString("mensagem"));
-				
-				solicitacoes.add(solicitacao);
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			connectionFactory.close(connection);
-		}
-			return solicitacoes;
-	}
-
-
 	@Override
 	public List<Exemplar> listaTodos(Usuario usuario) {
 		Connection connection = new JDBCConnectionFactory().getConnection();

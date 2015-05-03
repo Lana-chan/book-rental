@@ -133,7 +133,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 
 				List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
 				usuario.setColecao(colecao);
-				List<Avaliacao> reputacao = avaliiacaoDao.buscaPorUsuario(usuario);
+				List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
 				usuario.setReputacao(colecao);
 				
 				usuarios.add(usuario);
