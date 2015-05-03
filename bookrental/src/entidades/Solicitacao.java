@@ -21,7 +21,8 @@ public class Solicitacao {
 		this.setExemplar(exemplar);
 	}
 	
-	public int getId() {return this.id;}
+	public int getId() { return this.id; }
+	public void setId(int id) { this.id = id; }
 	
 	public Usuario getDoador() { return this.doador; }
 	public void setDoador(Usuario doador) { this.doador = doador; }

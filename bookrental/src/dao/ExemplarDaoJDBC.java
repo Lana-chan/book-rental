@@ -18,7 +18,7 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 	@Override
 	public void adiciona_(Exemplar exemplar) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "insert into exemplar (livro, disponivel, proprietario, foto) values (?,?,?, ?)";
+		String sql = "insert into exemplar (livro, disponivel, proprietario, foto) values (?, ?, ?, ?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, exemplar.getLivro().getISBN());

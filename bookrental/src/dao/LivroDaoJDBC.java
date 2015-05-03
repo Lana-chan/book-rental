@@ -40,18 +40,18 @@ public class LivroDaoJDBC extends LivroDao {
 	@Override
 	public void atualiza_(Livro livro) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "update livro set autor = ?, editora = ?, editora = ?, ano = ?, edicao = ?, sinopse = ?, numPaginas = ?, idioma = ? where titulo = ?";
+		String sql = "update livro set autor = ?, editora = ?, editora = ?, ano = ?, edicao = ?, sinopse = ?, numPaginas = ?, idioma = ? where isbn = ?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setLong(1, livro.getISBN());
-			stmt.setString(2, livro.getTitulo());
-			stmt.setString(3, livro.getAutor());
-			stmt.setString(4, livro.getEditora());
-			stmt.setInt(5, livro.getAno());
-			stmt.setInt(6, livro.getEdicao());
-			stmt.setString(7, livro.getSinopse());
-			stmt.setInt(8, livro.getNumPaginas());
-			stmt.setString(9, livro.getIdioma());
+			stmt.setString(1, livro.getTitulo());
+			stmt.setString(2, livro.getAutor());
+			stmt.setString(3, livro.getEditora());
+			stmt.setInt(4, livro.getAno());
+			stmt.setInt(5, livro.getEdicao());
+			stmt.setString(6, livro.getSinopse());
+			stmt.setInt(7, livro.getNumPaginas());
+			stmt.setString(8, livro.getIdioma());
+			stmt.setLong(9, livro.getISBN());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {

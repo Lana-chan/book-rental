@@ -52,7 +52,7 @@ public abstract class SolicitacaoDao {
 	protected abstract void remove_(Solicitacao solicitacao);
 
 	//Busca por exemplar
-	public Solicitacao buscaPorExemplar(Exemplar exemplar) {
+	public List<Solicitacao> buscaPorExemplar(Exemplar exemplar) {
 		if (exemplar == null) {
 			throw new IllegalArgumentException("Parâmetro exemplar não pode ser nulo.");
 		}
@@ -63,6 +63,6 @@ public abstract class SolicitacaoDao {
 
 		return buscaPorExemplar_(exemplar);
 	}
-	protected abstract Solicitacao buscaPorExemplar_(Exemplar exemplar);
+	protected abstract List<Solicitacao> buscaPorExemplar_(Exemplar exemplar);
 
 }
