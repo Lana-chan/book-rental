@@ -2,7 +2,7 @@ package entidades;
 
 public class Solicitacao {
 	
-	private static final long serialVersionUID = 1L;
+	private int id;
 	private Usuario doador;
 	private Usuario receptor;
 	private Exemplar exemplar;
@@ -18,9 +18,10 @@ public class Solicitacao {
 	public Solicitacao(Usuario doador, Usuario receptor, Exemplar exemplar, String mensagem){
 		this.setDoador(doador);
 		this.setReceptor(receptor);
-		// this aqui se refere a um tipo solicitacao, isso não está no usuario.java, pessoal
 		this.setExemplar(exemplar);
 	}
+	
+	public int getId() {return this.id;}
 	
 	public Usuario getDoador() { return this.doador; }
 	public void setDoador(Usuario doador) { this.doador = doador; }
@@ -70,7 +71,7 @@ public class Solicitacao {
 	}
 	
 	public Avaliacao criaAvaliacao(int nota, String comentario){
-		Avaliacao novaAvaliacao= new Avaliacao(nota, comentario, this.receptor);
+		Avaliacao novaAvaliacao= new Avaliacao(nota, comentario, this.receptor, getExemplar().getProprietario());
 		return novaAvaliacao;
 
 	}
