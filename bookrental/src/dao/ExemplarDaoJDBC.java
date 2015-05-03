@@ -18,12 +18,12 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 	@Override
 	public void adiciona_(Exemplar exemplar) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "insert into exemplar (proprietario) values (?)";
+		String sql = "insert into exemplar (livro, disponivel, proprietario, foto) values (?,?,?, ?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setLong(1, exemplar.getLivro().getISBN());
 			stmt.setBoolean(2, exemplar.getDisponivel());
-			stmt.setObject(3, exemplar.getProprietario().getNumUsp());
+			stmt.setInt(3, exemplar.getProprietario().getNumUsp());
 			stmt.setString(4, exemplar.getFoto());
 			stmt.execute();
 			stmt.close();
@@ -37,11 +37,11 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 	@Override
 	public void atualizaProprietario_(Exemplar exemplar) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "update livros set proprietario=? where ISBN=?";
+		String sql = "update exemplar set proprietario=? where id=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setObject(1, exemplar.getProprietario().getNumUsp());
-			stmt.setObject(2, exemplar.getLivro().getISBN());
+			stmt.setInt(1, exemplar.getProprietario().getNumUsp());
+			stmt.setInt(2, exemplar.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -53,11 +53,11 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 	
 	public void atualizaDisponibilidade_(Exemplar exemplar, Boolean disponivel) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "update livros set disponivel=? where ISBN=?";
+		String sql = "update exemplar set disponivel=? where id=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setObject(1, disponivel);
-			stmt.setObject(2, exemplar.getLivro().getISBN());
+			stmt.setBoolean(1, disponivel);
+			stmt.setInt(2, exemplar.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -99,21 +99,20 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 		
 	
 	@Override
-	public List<Exemplar> listaTodos(Usuario usuario) {
+	public List<Exemplar> listaTodos(int numUsp) {
 		Connection connection = new JDBCConnectionFactory().getConnection();
 		PreparedStatement stmt;
 		List<Exemplar> exemplares = new ArrayList<Exemplar>();
 
 		try {
-			stmt = connection.prepareStatement("select (livro, disponivel, proprietario, foto) from Exemplar where proprietario=?");
-			stmt.setInt(1, usuario.getNumUsp());
+			stmt = connection.prepareStatement("select (livro, disponivel, foto) from Exemplar where proprietario=?");
+			stmt.setInt(1, numUsp);
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
 				Exemplar exemplar = new Exemplar();
 				exemplar.getLivro().setISBN(rs.getLong("livro"));;
 				exemplar.setDisponivel(rs.getBoolean("disponivel"));
-				exemplar.getProprietario().setNumUsp(rs.getInt("proprietario"));
 				exemplar.setFoto(rs.getString("foto"));
 				exemplares.add(exemplar);
 			}
@@ -136,8 +135,8 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 		PreparedStatement stmt;
 
 		try {
-			stmt = connection.prepareStatement("delete from exemplares where ISBN=?");
-			stmt.setLong(1, exemplar.getLivro().getISBN());
+			stmt = connection.prepareStatement("delete from exemplar where id=?");
+			stmt.setInt(1, exemplar.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {

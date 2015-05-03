@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Exemplar {
 	
-	private static final long serialVersionUID = 1L;
+	private int id;
 	private Livro livro;
 	private boolean disponivel;
 	private Usuario proprietario;
@@ -15,6 +15,7 @@ public class Exemplar {
 	public Exemplar() {
 		
 	}
+	
 	
 	public Exemplar (Livro livro, Usuario proprietario, String foto){
 		//super(ISBN, titulo, autor, editora, ano, edicao, sinopse, numPaginas, idioma);
@@ -29,6 +30,7 @@ public class Exemplar {
 	/*-------------------------------------------------------------------------------
 	 * Getters e Setters
 	 *------------------------------------------------------------------------------*/
+	public int getId() {return this.id;}
 	
 	public Livro getLivro() {return this.livro;}
 	public void setLivro(Livro livro) {this.livro = livro;}

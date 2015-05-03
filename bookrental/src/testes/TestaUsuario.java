@@ -1,11 +1,18 @@
 package testes;
 
+
+import testes.TestaUsuario;
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.UsuarioDao;
+import dao.UsuarioDaoFactory;
 import entidades.Avaliacao;
 import entidades.Exemplar;
-import entidades.Livro;
+import entidades.Usuario;
 import entidades.Solicitacao;
 import entidades.Unidade;
 
@@ -13,6 +20,7 @@ public class TestaUsuario {
 	
 	static final int[] numUSP = {11111,22222,33333,44444,55555,66666,77777,88888,99999,10101 };
 	//private int numUSP;
+	
 	
 	//private String nome;
 	static final String[] nome = { "ana", "beatriz", "carlos", "carla", "joao",
@@ -30,8 +38,8 @@ public class TestaUsuario {
 	
 	
 	//private String foto;
-	static final String[] foto = { "Fotoana", "Fotobeatriz", "Fotocarlos", "Fotocarla", "Fotojoao",
-		"Fotojessica", "Fotoflavio", "Fotocarlos", "Fotopablo", "Fotovinicius" };
+	/* NÃO HAVERA MAIS FOTO static final String[] foto = { "Fotoana", "Fotobeatriz", "Fotocarlos", "Fotocarla", "Fotojoao",
+		"Fotojessica", "Fotoflavio", "Fotocarlos", "Fotopablo", "Fotovinicius" };*/
 	
 	//pesquisar 
 	private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
@@ -42,72 +50,82 @@ public class TestaUsuario {
 	}
 	
 	static void testa(){
-		Exemplar dummyExem = new Exemplar();
-		incluiExemplar(dummyExem);
-		removeExemplar(dummyExem);
-		Livro dummyLivro = new Livro();
-		cadastraLivro(dummyLivro);
-		criaAvaliacao(0,"a");
-		Avaliacao dummyAval = new Avaliacao();
-		incluiReputacao(dummyAval);
-		calculaReputacao(); // o que isso faz sem entrada nem saída??? -erin
-		criaSolicitacao(dummyExem,"oi");
-		Solicitacao dummySol = new Solicitacao();
-		respondeSolicitacao(dummySol, true);
-
-		
+		populaBD();
+		//testaBuscaPorTitulo();
+		//testaListagens();
+		//testaRemocao();
+		testaListagens();
+		//limpaBD();
 	}
 	
-	//public Exemplar incluiExemplar(Exemplar exemplar){
-	//public void removeExemplar(Exemplar exemplar){
-	//public void cadastraLivro(Livro livro){
-	//public void criaAvaliacao(int nota, String comentario){
-	//public void incluiReputacao(Avaliacao novaAvaliacao){
-	//public void calculaReputacao(){}
-	//public void criaSolicitacao(Exemplar exemplar, String mensagem){
-	//public void respondeSolicitacao (Solicitacao solicitacao, boolean resposta)
-	
-	public static Exemplar incluiExemplar(Exemplar exemplar){
-		Exemplar incluso;
-		incluso = new Exemplar(); //substituir
-		return incluso;
+	static void populaBD() {
+		UsuarioDao UsuarioDao = new UsuarioDaoFactory().getInstance();
+
+		for (int i = 0; i < titulos.length; i++) {
+			UsuarioDao.adiciona(new Usuario(ISBN[i], titulos[i], autores[i], editoras[i], 
+					ano[i], edicao[i], sinopse[i], numPaginas[i], idioma[i]));
+		}
 	}
 
-	public static void removeExemplar(Exemplar exemplar){
-		//talvez bool pra retornar se deu certo
+	static void limpaBD() {
+		UsuarioDao UsuarioDao = new UsuarioDaoFactory().getInstance();
+
+		for (Usuario Usuario : UsuarioDao.listaTodos()) {
+			UsuarioDao.remove(Usuario);
+		}
 	}
 
-	public static void cadastraLivro(Livro livro){
+	static void testaBuscaPorTitulo() {
+		UsuarioDao UsuarioDao = new UsuarioDaoFactory().getInstance();
+		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("------------------------ Testa busca por título -----------------------------------");
+		System.out.println("-----------------------------------------------------------------------------------");
 
-	}
-	
-	public static void criaAvaliacao(int nota, String comentario){
-		//a pensar
-		//Avaliacao novaAvaliacao=new Avaliacao(nota, comentario, this);
-		//THIS não funciona em estáticos -- esse arquivo não é um objeto -erin
+		for (int i = 0; i < titulos.length; i++) {
+			System.out.println(i+ " " + UsuarioDao.buscaPorTitulo(titulos[i]));
+		}
+
+		System.out.println("\n");
 	}
 
-	public static void incluiReputacao(Avaliacao novaAvaliacao){
-		
+	static void testaListagens() {
+		UsuarioDao UsuarioDao = new UsuarioDaoFactory().getInstance();
+	
+		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("------------------------- Usuarios ordenados por autor ------------------------------");
+		System.out.println("-----------------------------------------------------------------------------------");
+		for (Usuario Usuario : UsuarioDao.listaTodosOrdenandoPorTitulo()){ 
+			System.out.println(Usuario);
+			//System.out.println("\n");
+		}
+		System.out.println("-----------------------------------------------------------------------------------");
+		System.out.println("------------------------- Usuarios ordenados por título -----------------------------");
+		System.out.println("-----------------------------------------------------------------------------------");
+		for (Usuario Usuario : UsuarioDao.listaTodosOrdenandoPorTitulo()) {
+			System.out.println(Usuario);
+		}
+		System.out.println("\n");
 	}
-	
-	public static void calculaReputacao(){
-		
-	}
-	
-	public static void criaSolicitacao(Exemplar exemplar, String mensagem){
-		//qndo a pessoa clicar no botão, requisitar livro.
-		//Solicitacao solic = new Solicitacao(exemplar.getProprietario(), this, exemplar, mensagem);
-		//THIS não funciona em estáticos -- esse arquivo não é um objeto -erin
-		
-		//exemplar.incluiSolicitacao(solic);
-	}
-	
-	public static void respondeSolicitacao (Solicitacao solicitacao, boolean resposta){
-		//confirma se vai doar ou não ao possível receptor.
-	}	
-	
 
+	static void testaRemocao() {
+		UsuarioDao UsuarioDao = new UsuarioDaoFactory().getInstance();
+
+		for (int i = 0; i < titulos.length / 2; i++) {
+			UsuarioDao.remove(UsuarioDao.buscaPorTitulo(titulos[i]));
+		}
+	}
+
+	static void testaAtualiza() {
+		UsuarioDao UsuarioDao = new UsuarioDaoFactory().getInstance();
+
+		for (int i = 0; i < titulos.length / 2; i++) {
+			Usuario Usuario = UsuarioDao.buscaPorTitulo(titulos[i]);
+			Usuario.setAutor("Autor " + i);
+			Usuario.setEditora("Editora " + i);
+			UsuarioDao.atualiza(Usuario);
+		}
+	}
+	
 		
 
 }

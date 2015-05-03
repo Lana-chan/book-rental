@@ -94,7 +94,7 @@ public abstract class ExemplarDao {
 
 	//Lista colecao do usuario por titulo
 	public List<Exemplar> listaTodosOrdenandoPorTitulo(Usuario usuario) {
-		List<Exemplar> exemplares = listaTodos(usuario);
+		List<Exemplar> exemplares = listaTodos(usuario.getNumUsp());
 
 		Collections.sort(exemplares, new Comparator<Exemplar>() {
 
@@ -106,22 +106,6 @@ public abstract class ExemplarDao {
 		return exemplares;
 	}
 	//lista todos os livros
-	public abstract List<Exemplar> listaTodos(Usuario usuario);
-	
-	
-	//lista solicitacoes
-	public List<Solicitacao> buscaSolicitacoes(Exemplar exemplar) {
-		List<Solicitacao> solicitacoes = buscaSolicitacoes_(exemplar);
+	public abstract List<Exemplar> listaTodos(int numUsp);
 
-		Collections.sort(solicitacoes, new Comparator<Solicitacao>() {
-
-			@Override
-			public int compare(Solicitacao o1, Solicitacao o2) {
-				return comparadorDeStrings.compare(o1.getExemplar().getLivro().getAutor(), o2.getExemplar().getLivro().getAutor());
-			}
-		});
-
-		return solicitacoes;
-	}
-	public abstract List<Solicitacao> buscaSolicitacoes_(Exemplar exemplar);
 }
