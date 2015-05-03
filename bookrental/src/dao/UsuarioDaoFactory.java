@@ -10,9 +10,9 @@ public class UsuarioDaoFactory {
 		nomeClasseDAO = new Propriedades().getPropriedade("usuarioDao");
 	}
 
-	public UsuarioDao getInstance() {
+	public LivroDao getInstance() {
 		try {
-			return (UsuarioDao) Class.forName(nomeClasseDAO).newInstance();
+			return (LivroDao) Class.forName(nomeClasseDAO).newInstance();
 		} catch (InstantiationException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {

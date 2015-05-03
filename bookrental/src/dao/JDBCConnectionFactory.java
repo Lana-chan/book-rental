@@ -74,7 +74,6 @@ public class JDBCConnectionFactory {
 	      				" nota							INT			NOT NULL," +
 	      				" comentario					TEXT," +
 	      				" critico						INT			NOT NULL," +
-	      				" receptor						INT			NOT NULL," +	
 	      				" FOREIGN KEY (critico) 		REFERENCES	Usuario(numUsp)," +
 	      				" PRIMARY KEY (id));" +
 		 

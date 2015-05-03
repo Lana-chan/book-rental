@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import entidades.Usuario;
 import entidades.Unidade;
 import entidades.Exemplar;
@@ -76,13 +75,12 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
 				
-				//ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
-				
-				//List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
-				//usuario.setColecao(colecao);
-				//ExemplarDao avaliacaoDao = new AvaliacaoDaoFactory().getInstance();
-				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
-				//usuario.setReputacao(colecao);
+				ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
+				List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
+				usuario.setColecao(colecao);
+				ExemplarDao avaliacaoDao = new AvaliacaoDaoFactory().getInstance();
+				List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
+				usuario.setReputacao(colecao);
 			}
 
 			rs.close();
@@ -123,7 +121,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 			ResultSet rs = stmt.executeQuery();
 
 			ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
-			//ExemplarDao AvaliacaoDao = new AvaliacaoDaoFactory().getInstance();
+			ExemplarDao AvaliacaoDao = new AvaliacaoDaoFactory().getInstance();
 			while (rs.next()) {
 				Usuario usuario = new Usuario();
 				usuario = new Usuario();
@@ -132,11 +130,11 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
-				
-				//List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
-				//usuario.setColecao(colecao);
-				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
-				//usuario.setReputacao(colecao);
+
+				List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
+				usuario.setColecao(colecao);
+				List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
+				usuario.setReputacao(colecao);
 				
 				usuarios.add(usuario);
 			}
@@ -151,32 +149,4 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 
 		return usuarios;
 	}
-	
-	
-	public List<Avaliacao> listaReputacao(Usuario user) {
-		Connection connection = new JDBCConnectionFactory().getConnection();
-		PreparedStatement stmt;
-		List<Avaliacao> reputacao = new ArrayList<Avaliacao>();
-
-		try {
-			stmt = connection.prepareStatement("select (nota) from Exemplar where receptor=?");
-			stmt.setInt(1, user.getNumUsp());
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				Avaliacao nota = new Avaliacao();
-				nota.setNota(rs.getInt("nota"));
-				reputacao.add(nota);
-			}
-			rs.close();
-			stmt.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			connectionFactory.close(connection);
-		}
-		return reputacao;
-	}
-	
-	
 }
