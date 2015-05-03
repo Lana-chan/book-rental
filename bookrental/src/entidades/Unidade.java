@@ -1,10 +1,10 @@
 package entidades;
 
 public enum Unidade {
-	EACH(0),
-	IME(1),
-	MED(2),
-	POLI(3);
+	each(0),
+	ime(1),
+	med(2),
+	poli(3);
 	
     private int _value;
 

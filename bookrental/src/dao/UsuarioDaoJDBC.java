@@ -76,9 +76,8 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
 				
-				//ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
-				
-				//List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
+				ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
+				List<Exemplar> colecao = exemplarDao.listaTodos(numUsp);
 				//usuario.setColecao(colecao);
 				//ExemplarDao avaliacaoDao = new AvaliacaoDaoFactory().getInstance();
 				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
@@ -132,7 +131,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
-				
+				//usuario.set
 				//List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
 				//usuario.setColecao(colecao);
 				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);

@@ -76,7 +76,6 @@ public class SolicitacaoDaoJDBC extends SolicitacaoDao {
 			
 			if (rs.next()) {
 				Solicitacao solicitacao = new Solicitacao();
-				solicitacao.setId(rs.getInt("id"));
 				solicitacao.setDoador(usuarioDao.buscaPorNumUsp(rs.getInt("doador")));
 				solicitacao.setReceptor(usuarioDao.buscaPorNumUsp(rs.getInt("receptor")));
 				solicitacao.setMensagem(rs.getString("mensagem"));

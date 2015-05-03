@@ -1,7 +1,10 @@
 package testes;
 
 import entidades.Exemplar;
+
 import entidades.Usuario;
+import entidades.Solicitacao;
+import entidades.Exemplar;
 
 public class TestaSolicitacao {
 	//private static final long serialVersionUID = 1L;
@@ -25,7 +28,15 @@ public class TestaSolicitacao {
 		"mediano", "gostei", "gostei muito", "muito bom", "excelente"};
 	
 	public static void main(String[] args) {
+		Solicitacao metodos = new Solicitacao();
+		Usuario doador = new Usuario();
+		Usuario receptor = new Usuario();
+		Exemplar exemplar = new Exemplar();
 		confirmaEntrega(true);
+		metodos.cancelaTransacao ();
+		metodos.criaAvaliacao(7,"bacana");
+		
+		
 	
 	}
 
