@@ -92,7 +92,6 @@ public class SolicitacaoDaoJDBC extends SolicitacaoDao {
 		return solicitacoes;
 	}
 
-
 	@Override
 	public void remove_(Solicitacao solicitacao) {
 		Connection connection = new JDBCConnectionFactory().getConnection();
