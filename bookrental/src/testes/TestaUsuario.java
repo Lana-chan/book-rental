@@ -94,6 +94,7 @@ public class TestaUsuario {
 			System.out.println("NumUsp: "+ Usuario.getNumUsp());
 			System.out.println("Nome: "+ Usuario.getNome());
 			System.out.println("Unidade: "+ Usuario.getUnidade());
+			System.out.println("Reputacao: "+ Usuario.calculaMediaReputacao());
 			System.out.println("Colecao: "+ Usuario.getColecao());
 			System.out.println("\n");
 		}

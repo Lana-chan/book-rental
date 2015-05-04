@@ -1,48 +1,38 @@
 package testes;
 
-import java.util.ArrayList;
+import dao.ExemplarDao;
+import dao.ExemplarDaoFactory;
 
-import java.util.List;
 import entidades.Usuario;
-import entidades.Avaliacao;
 import entidades.Exemplar;
 import entidades.Livro;
-import entidades.Solicitacao;
 import entidades.Unidade;
-import entidades.Notificacao;
 
 public class TestaExemplar {
-	private static final long serialVersionUID = 1L;
-	private Livro livro;
-	private boolean disponivel;
-	
-	//private Usuario proprietario;
-	//private List<Usuario> historicoProprietario = new ArrayList<Usuario>();
-	//private List<Solicitacao> solicitacoes = new ArrayList<Solicitacao>();
-	
-	//private String foto;
-	static final String[] foto = { "Fotoana", "Fotobeatriz", "Fotocarlos", "Fotocarla", "Fotojoao",
-		"Fotojessica", "Fotoflavio", "Fotocarlos", "Fotopablo", "Fotovinicius" };
-	
-	
-	public static void main(String[] args) {
+	static void teste1() {
 		testa();
 	}
 	
-	//testa metodos
 	static void testa(){
+		long ISBN = 1234567890123L;
+		String titulo = "Física Quântica Só Para Baixinhos";
+		String autor = "Axe of Assis";
+		String editora = "Abril";
+		int ano = 1994;
+		int edicao = 3;
+		String sinopse = "Um livro muito bom.";
+		int numPaginas = 768;
+		String idioma = "Mandarin";
+		Livro livro = new Livro(ISBN, titulo, autor, editora, ano, edicao, sinopse, numPaginas, idioma);
 		
-		Usuario dummyUser = new Usuario();
-		Solicitacao dummySol = new Solicitacao();
-		Exemplar metodos = new Exemplar();
+		Usuario usuario = new Usuario(1239482, "Roy G. Biv", Unidade.each, "roygbiv@usp.br");
 		
+		System.out.println(usuario);
 		
-		metodos.modificaProprietario(dummyUser);	
-		metodos.incluiSolicitacao (dummySol);	
-		metodos.excluiSolicitacao (dummySol);
-	
+		Exemplar exemplar = new Exemplar(livro, usuario, "fotoLivro");
+		usuario.incluiExemplar(exemplar);
+		
+		System.out.println(usuario);
+		System.out.println(exemplar);
 	}
-	
-
-	
 }
