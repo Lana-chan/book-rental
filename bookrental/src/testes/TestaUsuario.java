@@ -38,19 +38,8 @@ public class TestaUsuario {
 	static final String[] email = { "ana@usp", "beatriz@usp", "carlos@usp", "carla@usp", "joao@usp",
 		"jessica@usp", "flavio@usp", "carlos@usp", "pablo@usp", "vinicius@usp" };
 	
-	
-	
-	//private String foto;
-	/* NÃO HAVERA MAIS FOTO static final String[] foto = { "Fotoana", "Fotobeatriz", "Fotocarlos", "Fotocarla", "Fotojoao",
-		"Fotojessica", "Fotoflavio", "Fotocarlos", "Fotopablo", "Fotovinicius" };*/
-	
-	//pesquisar 
 	private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
 	private List<Avaliacao> reputacao = new ArrayList<Avaliacao>(); //lista
-	
-	public static void main(String[] args) {
-		testa();
-	}
 	
 	static void testa(){
 		populaBD();
@@ -112,6 +101,21 @@ public class TestaUsuario {
 			System.out.println("Colecao: "+ Usuario.getColecao());
 			System.out.println("\n");
 		}
+	}
+	
+	static void testaColecao(Usuario user) {
+			UsuarioDao UsuarioDao = new UsuarioDaoFactory().getInstance();
+			ExemplarDao ExemplarDao = new ExemplarDaoFactory().getInstance();
+
+			System.out.println("-----------------------------------------------------------------------------------");
+			System.out.println("-------------------------Coleção do Usuario---------------------------------------");
+			System.out.println("-----------------------------------------------------------------------------------");
+			//for (Exemplar exemplar : ExemplarDao.buscaPorId(this.exemplar)){ 
+				//System.out.println("Livro:"+exemplar.getLivro().getTitulo());
+			//	System.out.println("Autor:"+exemplar.getLivro().getAutor());
+				//System.out.println("Edicao:"+exemplar.getLivro().getEdicao());
+				//System.out.println("\n");
+			//}
 	}
 	
 	

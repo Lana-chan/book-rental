@@ -96,6 +96,31 @@ public class ExemplarDaoJDBC extends ExemplarDao {
 		Exemplar dummy = new Exemplar();
 		return dummy;
 	}
+	
+	public List<Exemplar> buscaPorId_(int numUsp) {
+		Connection connection = new JDBCConnectionFactory().getConnection();
+		PreparedStatement stmt;
+		List<Exemplar> exemplares = new ArrayList<Exemplar>();
+		try {
+			stmt = connection.prepareStatement("select (livro) from Exemplar where proprietario=?");
+			stmt.setInt(1, numUsp);
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				Exemplar exemplar = new Exemplar();
+				exemplar.getLivro().setISBN(rs.getInt("livro"));
+				exemplares.add(exemplar);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			connectionFactory.close(connection);
+		}
+
+		return exemplares;
+	}
 		
 	
 	@Override

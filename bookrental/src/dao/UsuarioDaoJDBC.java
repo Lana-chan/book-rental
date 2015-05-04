@@ -75,10 +75,9 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
-
 				ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
-				//List<Exemplar> colecao = exemplarDao.listaTodos(numUsp);
-				//usuario.setColecao(colecao);
+				List<Exemplar> colecao = exemplarDao.buscaPorId_(numUsp);
+				usuario.setColecao(colecao);
 				//ExemplarDao avaliacaoDao = new AvaliacaoDaoFactory().getInstance();
 				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
 				//usuario.setReputacao(colecao);
@@ -94,6 +93,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 
 		return usuario;
 	}
+	
 
 	@Override
 	public void remove_(Usuario usuario) {
@@ -131,9 +131,9 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
-				//usuario.set
-				//List<Exemplar> colecao = exemplarDao.buscaPorUsuario(usuario);
-				//usuario.setColecao(colecao);
+				ExemplarDao exemplar = new ExemplarDaoFactory().getInstance();
+				List<Exemplar> colecao = exemplar.buscaPorId_(usuario.getNumUsp());
+				usuario.setColecao(colecao);
 				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
 				//usuario.setReputacao(colecao);
 				

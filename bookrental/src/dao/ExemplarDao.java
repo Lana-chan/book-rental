@@ -73,6 +73,16 @@ public abstract class ExemplarDao {
 		return buscaPorTitulo_(exemplar.getLivro().getTitulo());
 	}
 	protected abstract Exemplar buscaPorTitulo_(String titulo);
+	
+	//Busca por titulo
+	public List<Exemplar> buscaPorId(Exemplar exemplar) {
+		if (exemplar == null) {
+			throw new IllegalArgumentException("Parâmetro livro não pode ser nulo.");
+		}
+
+		return buscaPorId_(exemplar.getId());
+	}
+	protected abstract List<Exemplar> buscaPorId_(int id);
 
 	//Remove exemplar
 	public void remove(Exemplar exemplar) {

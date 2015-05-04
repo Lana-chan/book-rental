@@ -23,6 +23,16 @@ public class Usuario  {
 		this.setNome(nome);
 		this.setUnidade(unidade);
 		this.setEmail(email);
+		//this.setColecao(colecao);
+	}
+	
+	
+	public Usuario(int numUSP, String nome, Unidade unidade, String email, List<Exemplar> colecao) {
+		this.setNumUsp(numUSP);
+		this.setNome(nome);
+		this.setUnidade(unidade);
+		this.setEmail(email);
+		this.setColecao(colecao);
 	}
 	
 	/*-------------------------------------------------------------------------------
@@ -42,7 +52,7 @@ public class Usuario  {
 	public void setEmail(String email) {this.email = email;}
 	
 	public List<Exemplar> getColecao() {return colecao;}
-	public List<Exemplar> setColecao() {return this.colecao=colecao;}
+	public List<Exemplar> setColecao(List<Exemplar> colecao) {return this.colecao=colecao;}
 	
 	public String getFoto (){return this.foto;}
 	public void setFoto (String foto){this.foto = foto;}
