@@ -1,12 +1,9 @@
 package dao;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import entidades.Solicitacao;
 import entidades.Exemplar;
-import entidades.Usuario;
 
 public abstract class SolicitacaoDao {
 	public SolicitacaoDao() {

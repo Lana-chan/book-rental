@@ -9,7 +9,6 @@ import java.util.List;
 
 import entidades.Exemplar;
 import entidades.Solicitacao;
-import entidades.Usuario;
 
 public class SolicitacaoDaoJDBC extends SolicitacaoDao {
 

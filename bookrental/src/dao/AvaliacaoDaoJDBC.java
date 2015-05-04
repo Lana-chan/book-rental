@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidades.Exemplar;
 import entidades.Avaliacao;
-import entidades.Usuario;
 
 public class AvaliacaoDaoJDBC extends AvaliacaoDao {
 

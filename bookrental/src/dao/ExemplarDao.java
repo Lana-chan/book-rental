@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import entidades.Exemplar;
-import entidades.Solicitacao;
 import entidades.Usuario;
 
 public abstract class ExemplarDao {

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Exemplar;
-import entidades.Solicitacao;
-import entidades.Usuario;
 
 public class ExemplarDaoJDBC extends ExemplarDao {
 

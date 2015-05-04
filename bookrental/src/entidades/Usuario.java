@@ -12,7 +12,7 @@ public class Usuario  {
 	private List<Exemplar> colecao = new ArrayList<Exemplar>(); //lista
 	private List<Avaliacao> reputacao = new ArrayList<Avaliacao>(); //lista
 
-	private java.sql.Date date;
+	//private java.sql.Date date;
 	
 	public Usuario () {
 		

@@ -3,11 +3,10 @@ import java.sql.Date;
 
 public class Notificacao {
 	
-	private static final long serialVersionUID = 1L;
 	private Usuario remetente;
 	private Usuario destinatario;
 	private String mensagem;
-	private boolean lida;
+	//private boolean lida;
 	private Date data;
 	
 	public Notificacao(){

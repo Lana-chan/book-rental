@@ -5,8 +5,6 @@ import util.StringUtils;
 
 public class Livro {
 
-	private static final long serialVersionUID = 1L;
-
 	private long ISBN;
 	private String titulo;
 	private String autor;

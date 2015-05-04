@@ -131,8 +131,8 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
-				ExemplarDao exemplar = new ExemplarDaoFactory().getInstance();
-				List<Exemplar> colecao = exemplar.buscaPorId_(usuario.getNumUsp());
+				//ExemplarDao exemplar = new ExemplarDaoFactory().getInstance();
+				List<Exemplar> colecao = exemplarDao.buscaPorId_(usuario.getNumUsp());
 				usuario.setColecao(colecao);
 				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);
 				//usuario.setReputacao(colecao);
