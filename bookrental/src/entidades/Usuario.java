@@ -71,9 +71,9 @@ public class Usuario  {
 	}
 
 	public Livro cadastraLivro(long ISBN, String titulo, String autor, String editora, int ano, int edicao, String sinopse, 
-								int numPaginas, String idioma, Usuario proprietario, String foto){
+								int numPaginas, String idioma, String foto){
 		Livro novoLivro=new Livro (ISBN, titulo, autor, editora, ano, edicao, sinopse, numPaginas, idioma);
-		Exemplar novoExemplar=new Exemplar(novoLivro, proprietario, foto);
+		Exemplar novoExemplar=new Exemplar(novoLivro, this, foto);
 		incluiExemplar(novoExemplar);
 		return novoLivro;
 	}

@@ -14,11 +14,7 @@ import dao.ExemplarDao;
 import dao.ExemplarDaoFactory;
 import dao.UsuarioDao;
 import dao.UsuarioDaoFactory;
-import entidades.Avaliacao;
-import entidades.Exemplar;
-import entidades.Usuario;
-import entidades.Solicitacao;
-import entidades.Unidade;
+import entidades.*;
 
 public class TestaUsuario {
 	
@@ -119,6 +115,64 @@ public class TestaUsuario {
 	}
 	
 	
+	
+	public static void testaCalculaMediaReputacao(){
 		
-
+		Usuario fabiano = new Usuario(989541436, "Fabiano", Unidade.each, "fabiano.sampaio@usp.br");
+		Usuario critico1 = new Usuario(100000000, "Joao", Unidade.each, "critico1@usp.br" );
+		Usuario critico2 = new Usuario(100000001, "Maria", Unidade.each, "critico2@usp.br" );
+		Avaliacao avaliacao1 = new Avaliacao(4, "", critico1, fabiano);
+		Avaliacao avaliacao2 = new Avaliacao(2, "", critico2, fabiano);
+		fabiano.incluiReputacao(avaliacao1);
+		fabiano.incluiReputacao(avaliacao2);
+		
+		//O usuario tem 2 avaliações, a primeira atribuiu nota 4 e a segunda nota 2.
+		//Logo o resultado da média deve ser 3. 
+		System.out.println("A media da reputacao eh:" + fabiano.calculaMediaReputacao());
+		
+		
+	}
+	
+	//Testa os Metodos cadastraLivro, criaSolicitacao e respondeSolicitacao
+	public static void testaMetodosSolicitacao(){
+		
+		Usuario fabiano = new Usuario(989541436, "Fabiano", Unidade.each, "fabiano.sampaio@usp.br");
+		Usuario receptor1 = new Usuario(100000000, "Joao", Unidade.each, "receptor@usp.br" );
+		Usuario receptor2 = new Usuario(100000001, "Maria", Unidade.each, "receptor2@usp.br" );
+		
+		//Testando o metodo cadastraLivro
+		fabiano.cadastraLivro(123456789, "O Capital", "Karl Marx", "Civilizacao Brasileira", 2008, 25, "Altas Tretas", 574, "Portugues", "Foto");
+		
+		Exemplar meuLivro = fabiano.getColecao().get(0);
+		
+		//Testando o metodo criaSolicitacao
+		receptor1.criaSolicitacao(meuLivro, "");
+		receptor2.criaSolicitacao(meuLivro, "");
+		
+		System.out.println ("O Exemplar '" + meuLivro.getLivro().getTitulo() + "' possui "
+		+ meuLivro.getSolicitacoes().size() + " solicitacoes. Sendo dos seguintes usuarios:");
+		
+		for (Solicitacao aux : meuLivro.getSolicitacoes()){
+			System.out.println(aux.getReceptor().getNome());
+		}
+		
+		//Testa o metodo responde solicitacao
+		
+		boolean resposta = true;
+		
+		System.out.print ("O Exemplar antes da resposta está ");
+		if (meuLivro.getDisponivel()==true) System.out.println("Disponivel.");
+		else System.out.println ("Indisponivel.");
+		
+		fabiano.respondeSolicitacao(meuLivro.getSolicitacoes().get(1),resposta);
+	
+		System.out.print ("O Exemplar depois da resposta está ");
+		if (meuLivro.getDisponivel()==true) System.out.println("Disponivel.");
+		else System.out.println ("Indisponivel.");
+	}
+	
+		
+	public static void main(String[] args) {
+		testaMetodosSolicitacao();
+	}
 }
