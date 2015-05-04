@@ -19,7 +19,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 	@Override
 	public void adiciona_(Usuario usuario) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "INSERT INTO usuarios (numUsp, nome, unidade, email, foto) values (?,?,?,?)";
+		String sql = "INSERT INTO usuario (numUsp, nome, unidade, email, foto) values (?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, usuario.getNumUsp());
@@ -40,7 +40,7 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 	@Override
 	public void atualiza_(Usuario usuario) {
 		Connection connection = connectionFactory.getConnection();
-		String sql = "UPDATE usuarios numUsp=?, nome=?, unidade=?, email=?, foto=?";
+		String sql = "UPDATE usuario numUsp=?, nome=?, unidade=?, email=?, foto=?";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, usuario.getNumUsp());
@@ -75,9 +75,9 @@ public class UsuarioDaoJDBC extends UsuarioDao {
 				usuario.setUnidade(Unidade.fromInt(rs.getInt("unidade")));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setFoto(rs.getString("foto"));
-				
+
 				ExemplarDao exemplarDao = new ExemplarDaoFactory().getInstance();
-				List<Exemplar> colecao = exemplarDao.listaTodos(numUsp);
+				//List<Exemplar> colecao = exemplarDao.listaTodos(numUsp);
 				//usuario.setColecao(colecao);
 				//ExemplarDao avaliacaoDao = new AvaliacaoDaoFactory().getInstance();
 				//List<Avaliacao> reputacao = avaliacaoDao.buscaPorUsuario(usuario);

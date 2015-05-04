@@ -42,6 +42,7 @@ public class Usuario  {
 	public void setEmail(String email) {this.email = email;}
 	
 	public List<Exemplar> getColecao() {return colecao;}
+	public List<Exemplar> setColecao() {return this.colecao=colecao;}
 	
 	public String getFoto (){return this.foto;}
 	public void setFoto (String foto){this.foto = foto;}

@@ -30,9 +30,9 @@ public class TestaUsuario {
 	static final String[] nome = { "ana", "beatriz", "carlos", "carla", "joao",
 		"jessica", "flavio", "carlos", "pablo", "vinicius" };
 	
-	Unidade uni=new Unidade();
 	//private Unidade unidade;
-	static final Unidade[] unidade = { 0, 0 };
+	static final Unidade[] unidade = { Unidade.each, Unidade.poli, Unidade.each, Unidade.med, Unidade.poli,
+		Unidade.each, Unidade.poli, Unidade.each, Unidade.med, Unidade.poli};
 	
 	//private String email;
 	static final String[] email = { "ana@usp", "beatriz@usp", "carlos@usp", "carla@usp", "joao@usp",
@@ -55,7 +55,6 @@ public class TestaUsuario {
 	static void testa(){
 		populaBD();
 		testaListagens();
-		testaListagens();
 		limpaBD();
 	}
 	
@@ -75,13 +74,13 @@ public class TestaUsuario {
 		}
 	}
 	
-	static boolean adicionaColecao(Exemplar exemplar){
+	static void adicionaColecao(Exemplar exemplar){
 		ExemplarDao ExemplarDao = new ExemplarDaoFactory().getInstance();
 		
 		ExemplarDao.adiciona(exemplar);
 	}
 	
-	static boolean removeColecao(Exemplar exemplar){
+	static void removeColecao(Exemplar exemplar){
 		ExemplarDao ExemplarDao = new ExemplarDaoFactory().getInstance();
 		
 		ExemplarDao.adiciona(exemplar);
@@ -110,6 +109,7 @@ public class TestaUsuario {
 			System.out.println("NumUsp: "+ Usuario.getNumUsp());
 			System.out.println("Nome: "+ Usuario.getNome());
 			System.out.println("Unidade: "+ Usuario.getUnidade());
+			System.out.println("Colecao: "+ Usuario.getColecao());
 			System.out.println("\n");
 		}
 	}
