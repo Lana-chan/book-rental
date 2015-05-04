@@ -102,7 +102,7 @@ public abstract class UsuarioDao {
 
 			@Override
 			public int compare(Usuario o1, Usuario o2) {
-				return o2.getNumUsp() - o1.getNumUsp();
+				return o1.getNumUsp() - o2.getNumUsp();
 			}
 		});
 

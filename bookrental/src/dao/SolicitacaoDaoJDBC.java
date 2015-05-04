@@ -101,7 +101,7 @@ public class SolicitacaoDaoJDBC extends SolicitacaoDao {
 
 		try {
 			stmt = connection.prepareStatement("delete from solicitacao where id=?");
-			stmt.setLong(1, solicitacao.getId());
+			stmt.setInt(1, solicitacao.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
