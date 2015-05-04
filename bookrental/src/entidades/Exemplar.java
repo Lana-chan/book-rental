@@ -1,6 +1,8 @@
 package entidades;
 import java.util.*;
 
+import util.StringUtils;
+
 public class Exemplar {
 	
 	private int id;
@@ -74,9 +76,9 @@ public class Exemplar {
 		this.solicitacoes.remove(solicitacao);
 	}
 	
-
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return StringUtils.fillOrTruncate(livro.getTitulo(), 40, ' ') + StringUtils.fillOrTruncate(proprietario.getNome(), 30, ' ')
+				+ StringUtils.fillOrTruncate(""+proprietario.getNumUsp(), 7, ' ');
+	}
 }

@@ -1,6 +1,8 @@
 package entidades;
 import java.util.*;
 
+import util.StringUtils;
+
 public class Usuario  {
 	
 	
@@ -125,4 +127,8 @@ public class Usuario  {
 		}
 	}	
 	
+	@Override
+	public String toString() {
+		return "Usuário " + nome + ", NUSP "+numUSP+", possui "+colecao.size()+" exemplares.";
+	}
 }
